@@ -1,0 +1,322 @@
+# Service master
+apiVersion: v1
+kind: Service
+metadata:
+  name: worker-master
+spec:
+  selector:
+    app: worker-master
+  ports:
+  - name: client-novcn
+    port: 80
+    targetPort: 80
+    nodePort: 31998
+  - name: websocket-vnc
+    port: 6081
+    targetPort: 6081
+    nodePort: 31999
+  - name: mouse
+    port: 5000
+    targetPort: 5000
+  type: NodePort
+---
+# Service W1
+apiVersion: v1
+kind: Service
+metadata:
+  name: worker-1
+spec:
+  selector:
+    app: worker-1
+  ports:
+  - name: websocket-vnc
+    port: 6081
+    targetPort: 6081
+    nodePort: 31000
+  type: NodePort
+---
+# Service W2
+apiVersion: v1
+kind: Service
+metadata:
+  name: worker-2
+spec:
+  selector:
+    app: worker-2
+  ports:
+  - name: websocket-vnc
+    port: 6081
+    targetPort: 6081
+    nodePort: 31001
+  type: NodePort
+---
+# Service W3
+apiVersion: v1
+kind: Service
+metadata:
+  name: worker-3
+spec:
+  selector:
+    app: worker-3
+  ports:
+  - name: websocket-vnc
+    port: 6081
+    targetPort: 6081
+    nodePort: 31002
+  type: NodePort
+---
+# Service W4
+apiVersion: v1
+kind: Service
+metadata:
+  name: worker-4
+spec:
+  selector:
+    app: worker-4
+  ports:
+  - name: websocket-vnc
+    port: 6081
+    targetPort: 6081
+    nodePort: 31003
+  type: NodePort
+---
+# Service W5
+apiVersion: v1
+kind: Service
+metadata:
+  name: worker-5
+spec:
+  selector:
+    app: worker-5
+  ports:
+  - name: websocket-vnc
+    port: 6081
+    targetPort: 6081
+    nodePort: 31004
+  type: NodePort
+---
+# Service W6
+apiVersion: v1
+kind: Service
+metadata:
+  name: worker-6
+spec:
+  selector:
+    app: worker-6
+  ports:
+  - name: websocket-vnc
+    port: 6081
+    targetPort: 6081
+    nodePort: 31005
+  type: NodePort
+---
+# Service W7
+apiVersion: v1
+kind: Service
+metadata:
+  name: worker-7
+spec:
+  selector:
+    app: worker-7
+  ports:
+  - name: websocket-vnc
+    port: 6081
+    targetPort: 6081
+    nodePort: 31006
+  type: NodePort
+---
+# Service W8
+apiVersion: v1
+kind: Service
+metadata:
+  name: worker-8
+spec:
+  selector:
+    app: worker-8
+  ports:
+  - name: websocket-vnc
+    port: 6081
+    targetPort: 6081
+    nodePort: 31007
+  type: NodePort
+---
+# Service W9
+apiVersion: v1
+kind: Service
+metadata:
+  name: worker-9
+spec:
+  selector:
+    app: worker-9
+  ports:
+  - name: websocket-vnc
+    port: 6081
+    targetPort: 6081
+    nodePort: 31009
+  type: NodePort
+---
+# Service W10
+apiVersion: v1
+kind: Service
+metadata:
+  name: worker-10
+spec:
+  selector:
+    app: worker-10
+  ports:
+  - name: websocket-vnc
+    port: 6081
+    targetPort: 6081
+    nodePort: 31010
+  type: NodePort
+---
+# Service W11
+apiVersion: v1
+kind: Service
+metadata:
+  name: worker-11
+spec:
+  selector:
+    app: worker-11
+  ports:
+  - name: websocket-vnc
+    port: 6081
+    targetPort: 6081
+    nodePort: 31030
+  type: NodePort
+---
+# Service W12
+apiVersion: v1
+kind: Service
+metadata:
+  name: worker-12
+spec:
+  selector:
+    app: worker-12
+  ports:
+  - name: websocket-vnc
+    port: 6081
+    targetPort: 6081
+    nodePort: 31031
+  type: NodePort
+---
+# Service W13
+apiVersion: v1
+kind: Service
+metadata:
+  name: worker-13
+spec:
+  selector:
+    app: worker-13
+  ports:
+  - name: websocket-vnc
+    port: 6081
+    targetPort: 6081
+    nodePort: 31032
+  type: NodePort
+---
+# Service W14
+apiVersion: v1
+kind: Service
+metadata:
+  name: worker-14
+spec:
+  selector:
+    app: worker-14
+  ports:
+  - name: websocket-vnc
+    port: 6081
+    targetPort: 6081
+    nodePort: 31033
+  type: NodePort
+---
+# Service W15
+apiVersion: v1
+kind: Service
+metadata:
+  name: worker-15
+spec:
+  selector:
+    app: worker-15
+  ports:
+  - name: websocket-vnc
+    port: 6081
+    targetPort: 6081
+    nodePort: 31034
+  type: NodePort
+---
+# Service W16
+apiVersion: v1
+kind: Service
+metadata:
+  name: worker-16
+spec:
+  selector:
+    app: worker-16
+  ports:
+  - name: websocket-vnc
+    port: 6081
+    targetPort: 6081
+    nodePort: 31035
+  type: NodePort
+---
+# Service W17
+apiVersion: v1
+kind: Service
+metadata:
+  name: worker-17
+spec:
+  selector:
+    app: worker-17
+  ports:
+  - name: websocket-vnc
+    port: 6081
+    targetPort: 6081
+    nodePort: 31036
+  type: NodePort
+---
+# Service W18
+apiVersion: v1
+kind: Service
+metadata:
+  name: worker-18
+spec:
+  selector:
+    app: worker-18
+  ports:
+  - name: websocket-vnc
+    port: 6081
+    targetPort: 6081
+    nodePort: 31037
+  type: NodePort
+---
+# Service W19
+apiVersion: v1
+kind: Service
+metadata:
+  name: worker-19
+spec:
+  selector:
+    app: worker-19
+  ports:
+  - name: websocket-vnc
+    port: 6081
+    targetPort: 6081
+    nodePort: 31038
+  type: NodePort
+---
+# Service W20
+apiVersion: v1
+kind: Service
+metadata:
+  name: worker-20
+spec:
+  selector:
+    app: worker-20
+  ports:
+  - name: websocket-vnc
+    port: 6081
+    targetPort: 6081
+    nodePort: 31039
+  type: NodePort
+---

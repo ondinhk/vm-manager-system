@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: vm-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - path: /vms/worker-master
+        pathType: Prefix
+        backend:
+          service:
+            name: worker-master
+            port:
+              number: 80
+      {% for item in list_data %}
+      - path: /vms/worker-{{ loop.index }}
+        pathType: Prefix
+        backend:
+          service:
+            name: worker-{{ loop.index }}
+            port:
+              number: 80{% endfor %}

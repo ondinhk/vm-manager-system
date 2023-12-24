@@ -1,0 +1,15 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.view {
+    width: 640px;
+    height: 480px;
+    background-color: rgb(146, 127, 101);
+    box-shadow: 0 0 0 1px rgb(177, 133, 133);
+    margin: 10px;
+    margin-bottom: 30px;
+}

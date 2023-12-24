@@ -1,0 +1,5 @@
+FROM ondinhk/vm-base
+
+COPY ./code /home/ubuntu/code
+
+ENTRYPOINT ["sh","-c", "/startup.sh & sleep 30 && export DISPLAY=:1 && python /home/ubuntu/code/mouse/client.py"]

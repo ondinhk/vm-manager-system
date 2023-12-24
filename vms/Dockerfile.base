@@ -1,0 +1,27 @@
+FROM dorowu/ubuntu-desktop-lxde-vnc
+
+# Update index
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 6494C6D6997C215E && \
+    wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add - && \
+    add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+
+# Setup package depend
+RUN apt-get update && apt-get remove google-chrome-stable -y && \
+    apt-get install -y google-chrome-stable code iputils-ping gnome-screenshot \
+    build-essential zlib1g-dev libncurses5-dev libgdbm-dev nano supervisor \
+    libnss3-dev libssl-dev libreadline-dev libffi-dev wget python3-pip \
+    python3-dev python3-venv unixodbc-dev python3-tk libx11-dev python3-distutils && \
+    apt-get autoremove -y
+
+# Copy source
+COPY ./code/requirements.txt /home/ubuntu/code/requirements.txt
+RUN sudo -H pip3 install -r /home/ubuntu/code/requirements.txt
+
+COPY ./code /home/ubuntu/code
+COPY ./files/Google.desktop /home/ubuntu/Desktop/Google.desktop
+RUN touch /home/ubuntu/.Xauthority && touch /root/.Xauthority
+
+ENTRYPOINT ["sh","-c", "/startup.sh & sleep 20 && export DISPLAY=:1 && python /home/ubuntu/code/sync_mouse/master.py"]
+
+# Client
+# ENTRYPOINT ["sh","-c", "/startup.sh & sleep 20 && export DISPLAY=:1 && python /home/ubuntu/code/sync_mouse/client.py"]

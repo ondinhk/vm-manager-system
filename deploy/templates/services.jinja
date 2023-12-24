@@ -1,0 +1,37 @@
+# Service master
+apiVersion: v1
+kind: Service
+metadata:
+  name: worker-master
+spec:
+  selector:
+    app: worker-master
+  ports:
+  - name: client-novcn
+    port: 80
+    targetPort: 80
+    nodePort: 31998
+  - name: websocket-vnc
+    port: 6081
+    targetPort: 6081
+    nodePort: 31999
+  - name: mouse
+    port: 5000
+    targetPort: 5000
+  type: NodePort
+---{% for item in list_data %}
+# Service W{{ loop.index }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: worker-{{ loop.index }}
+spec:
+  selector:
+    app: worker-{{ loop.index }}
+  ports:
+  - name: websocket-vnc
+    port: 6081
+    targetPort: 6081
+    nodePort: {{ item['port'] }}
+  type: NodePort
+---{% endfor %}

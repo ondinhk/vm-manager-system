@@ -1,0 +1,159 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: vm-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - path: /vms/worker-master
+        pathType: Prefix
+        backend:
+          service:
+            name: worker-master
+            port:
+              number: 80
+      
+      - path: /vms/worker-1
+        pathType: Prefix
+        backend:
+          service:
+            name: worker-1
+            port:
+              number: 80
+      - path: /vms/worker-2
+        pathType: Prefix
+        backend:
+          service:
+            name: worker-2
+            port:
+              number: 80
+      - path: /vms/worker-3
+        pathType: Prefix
+        backend:
+          service:
+            name: worker-3
+            port:
+              number: 80
+      - path: /vms/worker-4
+        pathType: Prefix
+        backend:
+          service:
+            name: worker-4
+            port:
+              number: 80
+      - path: /vms/worker-5
+        pathType: Prefix
+        backend:
+          service:
+            name: worker-5
+            port:
+              number: 80
+      - path: /vms/worker-6
+        pathType: Prefix
+        backend:
+          service:
+            name: worker-6
+            port:
+              number: 80
+      - path: /vms/worker-7
+        pathType: Prefix
+        backend:
+          service:
+            name: worker-7
+            port:
+              number: 80
+      - path: /vms/worker-8
+        pathType: Prefix
+        backend:
+          service:
+            name: worker-8
+            port:
+              number: 80
+      - path: /vms/worker-9
+        pathType: Prefix
+        backend:
+          service:
+            name: worker-9
+            port:
+              number: 80
+      - path: /vms/worker-10
+        pathType: Prefix
+        backend:
+          service:
+            name: worker-10
+            port:
+              number: 80
+      - path: /vms/worker-11
+        pathType: Prefix
+        backend:
+          service:
+            name: worker-11
+            port:
+              number: 80
+      - path: /vms/worker-12
+        pathType: Prefix
+        backend:
+          service:
+            name: worker-12
+            port:
+              number: 80
+      - path: /vms/worker-13
+        pathType: Prefix
+        backend:
+          service:
+            name: worker-13
+            port:
+              number: 80
+      - path: /vms/worker-14
+        pathType: Prefix
+        backend:
+          service:
+            name: worker-14
+            port:
+              number: 80
+      - path: /vms/worker-15
+        pathType: Prefix
+        backend:
+          service:
+            name: worker-15
+            port:
+              number: 80
+      - path: /vms/worker-16
+        pathType: Prefix
+        backend:
+          service:
+            name: worker-16
+            port:
+              number: 80
+      - path: /vms/worker-17
+        pathType: Prefix
+        backend:
+          service:
+            name: worker-17
+            port:
+              number: 80
+      - path: /vms/worker-18
+        pathType: Prefix
+        backend:
+          service:
+            name: worker-18
+            port:
+              number: 80
+      - path: /vms/worker-19
+        pathType: Prefix
+        backend:
+          service:
+            name: worker-19
+            port:
+              number: 80
+      - path: /vms/worker-20
+        pathType: Prefix
+        backend:
+          service:
+            name: worker-20
+            port:
+              number: 80

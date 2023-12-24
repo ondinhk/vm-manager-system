@@ -1,0 +1,78 @@
+volumes:
+  mongodb-vol:
+
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: backend-fastapi
+    volumes:
+      - ./backend/app:/code/app
+    environment:
+      MONGODB_URI: "mongodb://root:password@mongodb:27017"
+      DATABASE_NAME: vm-test
+    ports:
+      - '8080:80'
+    depends_on:
+      - mongodb
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: frontend-react
+    ports:
+      - '3000:3000'
+    depends_on:
+      - backend
+  
+  mongodb:
+    image: mongo
+    restart: always
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongodb-vol:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+
+  master:
+    build:
+      context: ./vms
+      dockerfile: Dockerfile.master
+    container_name: master-vm
+    ports:
+      - '6080:6081'
+    volumes:
+    - ./vms/code:/home/ubuntu/code
+    shm_size: '2gb'
+    environment:
+      RESOLUTION: '800x600'
+      MASTER_QUEUE: backend:6000
+      #HTTP_PROXY: 34.41.203.38:3128
+      EMAIL: 01234677431k@gmail.com
+      PASSWORD: 190999khangg@@##
+    depends_on:
+      - backend
+  
+  worker:
+    build:
+      context: ./vms
+      dockerfile: Dockerfile.worker
+    container_name: worker-vm
+    ports:
+      - '6081:6081'
+      - '9000:80'
+    volumes:
+    - ./vms/code:/home/ubuntu/code
+    shm_size: '2gb'
+    environment:
+      RESOLUTION: '800x600'
+      MOUSE_QUEUE: master:5000
+      MASTER_QUEUE: backend:6000
+      #HTTP_PROXY: 34.41.203.38:3128
+      EMAIL: ondinhkbackup@gmail.com
+      PASSWORD: 190999khangg@@##
+    depends_on:
+      - master
+      - backend

@@ -1,0 +1,7 @@
+#/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "frontend-charts.fullname" . }}
+data:
+  {{- toYaml .Values.configMap.data | nindent 2 }}
