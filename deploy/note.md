@@ -12,7 +12,7 @@ sudo sed -i '/\tswap\t/d' /etc/fstab
 
 kubeadm token create --print-join-command
 
-kubeadm join 192.168.1.30:6443 --token kvyszm.hxcfbmje7ox6xqvi \
+kubeadm join 192.168.1.11:6443 --token kvyszm.hxcfbmje7ox6xqvi \
 	--discovery-token-ca-cert-hash sha256:8b6aa6afdfd82cec416013338dcad17633b0e320d5e9ad98d119fc5f0da06ed7
 
 # Label

@@ -97,7 +97,7 @@ volumeMounts: []
 #   readOnly: true
 
 nodeSelector:
-  kubernetes.io/hostname: worker-node-1
+  kubernetes.io/hostname: worker-1
 
 tolerations: []
 
@@ -105,12 +105,12 @@ affinity: {}
 
 configMap:
   data:
-    BACKEND_URI: "http://192.168.1.30:30001"
+    BACKEND_URI: "http://192.168.1.11:30001"
 
 
 backend-charts:
   nodeSelector:
-    kubernetes.io/hostname: worker-node-1
+    kubernetes.io/hostname: worker-1
   mongodb:
     nodeSelector:
-      kubernetes.io/hostname: worker-node-1
+      kubernetes.io/hostname: worker-1
