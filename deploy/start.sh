@@ -2,17 +2,17 @@
 
 case "$1" in
     "template")
-        python3 /home/ubuntu/deploy/create_resource.py
+        python3 /home/ubuntu/code/vm-manager-system/deploy/create_resource.py
         ;;
     "install")
         case "$2" in
             "--infra")
                 echo "Starting infrastructure..."
-                helm install infra-release /home/ubuntu/deploy/helm-chart/frontend-charts
+                helm install infra-release /home/ubuntu/code/vm-manager-system/deploy/helm-chart/frontend-charts
                 ;;
             "--worker")
                 echo "Starting worker..."
-                helm install worker-release /home/ubuntu/deploy/helm-chart/worker-chart
+                helm install worker-release /home/ubuntu/code/vm-manager-system/deploy/helm-chart/worker-chart
                 ;;
             *)
                 echo "Invalid start option. Use --infra or --worker."

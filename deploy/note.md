@@ -18,7 +18,6 @@ kubeadm join 192.168.1.30:6443 --token kvyszm.hxcfbmje7ox6xqvi \
 # Label
 kubectl label node <name> node-role.kubernetes.io/worker=worker
 
-
 # Dashboard
 kubectl patch svc prometheus-stack-grafana -p '{"spec": {"type": "NodePort"}}'
 kubectl get secret prometheus-stack-grafana -o jsonpath="{.data.admin-password}" | base64 --decode

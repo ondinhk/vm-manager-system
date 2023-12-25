@@ -2,8 +2,9 @@ import csv
 
 from jinja2 import Environment, FileSystemLoader
 
-template_env = Environment(loader=FileSystemLoader('templates'))
-
+template_env = Environment(loader=FileSystemLoader('/home/ubuntu/code/vm-manager-system/deploy/templates'))
+deploymens_path = '/home/ubuntu/code/vm-manager-system/deploy/helm-chart/worker-chart/templates/deployments.yaml'
+services_path = '/home/ubuntu/code/vm-manager-system/deploy/helm-chart/worker-chart/templates/services.yaml'
 
 def generate_resource(template_dir, output_dir, list_data):
     template = template_env.get_template(template_dir)
@@ -23,7 +24,7 @@ def csv_to_dict(csv_file_path):
 
 
 if __name__ == '__main__':
-    data = csv_to_dict('./templates/data.csv')
-    generate_resource(template_dir='deployments.jinja', output_dir='./helm-chart/worker-chart/templates/deployments.yaml', list_data=data)
-    generate_resource(template_dir='services.jinja', output_dir='./helm-chart/worker-chart/templates/services.yaml', list_data=data)
-    generate_resource(template_dir='ingress.jinja', output_dir='./helm-chart/worker-chart/templates/ingress.yaml', list_data=data)
+    data = csv_to_dict('/home/ubuntu/code/vm-manager-system/deploy/templates/data.csv')
+    generate_resource(template_dir='deployments.jinja', output_dir=deploymens_path, list_data=data)
+    generate_resource(template_dir='services.jinja', output_dir=services_path, list_data=data)
+    # generate_resource(template_dir='ingress.jinja', output_dir='./helm-chart/worker-chart/templates/ingress.yaml', list_data=data)

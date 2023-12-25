@@ -49,7 +49,7 @@ spec:
         args: ["-c", "/startup.sh & sleep 30 && export DISPLAY=:1 && python /home/ubuntu/code/mouse/master.py & sleep 30 && export DISPLAY=:1 && python /home/ubuntu/code/worker/worker.py"]
         env:
         - name: RESOLUTION
-          value: '640x480'
+          value: '800x600'
         - name: VM_NAME
           value: 'vm_master'
         - name: USERNAME
@@ -113,7 +113,7 @@ spec:
         args: ["-c", "/startup.sh & sleep 30 && export DISPLAY=:1 && python /home/ubuntu/code/mouse/client.py & sleep 30 && export DISPLAY=:1 && python /home/ubuntu/code/worker/worker.py"]
         env:
         - name: RESOLUTION
-          value: '640x480'
+          value: '800x600'
         - name: VM_NAME
           value: {{ item['vm_name'] | tojson | safe }}
         - name: USERNAME
