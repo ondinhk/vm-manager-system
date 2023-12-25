@@ -15,8 +15,8 @@ const RDPView = ({ name, url }) => {
                         }
                     }}
                     style={{
-                        width: '640px',
-                        height: '480px',
+                        width: '800px',
+                        height: '600px',
                     }}
                 />
                 {name}
