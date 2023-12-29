@@ -21,3 +21,6 @@ kubectl label node <name> node-role.kubernetes.io/worker=worker
 # Dashboard
 kubectl patch svc prometheus-stack-grafana -p '{"spec": {"type": "NodePort"}}'
 kubectl get secret prometheus-stack-grafana -o jsonpath="{.data.admin-password}" | base64 --decode
+
+# Reset
+--cri-socket=unix:///var/run/crio/crio.sock

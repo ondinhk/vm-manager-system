@@ -2,4 +2,4 @@ FROM ondinhk/vm-base
 
 COPY ./code /home/ubuntu/code
 
-ENTRYPOINT ["sh","-c", "/startup.sh & sleep 30 && export DISPLAY=:1 && python /home/ubuntu/code/mouse/master.py"]
+ENTRYPOINT ["sh","-c", "/startup.sh & sleep 30 && export DISPLAY=:1 && python /home/ubuntu/code/mouse/master.py & sleep 30 && export DISPLAY=:1 && python /home/ubuntu/code/worker/worker.py"]

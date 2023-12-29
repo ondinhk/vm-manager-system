@@ -35,3 +35,11 @@ async def input_value(data: dict):
     data = {'action': 'input-value', 'data': data['input_value']}
     queue.publish_message(data=data)
     return 'success'
+
+
+@execute_route.get("/vms/execute/screen")
+async def take_screen():
+    queue: ZeroMQ = zero_queue_context.get()
+    data = {'action': 'take-screen', 'data': ""}
+    queue.publish_message(data=data)
+    return 'success'

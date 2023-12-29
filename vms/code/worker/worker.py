@@ -7,6 +7,7 @@ import zmq
 from app.logger import logger
 from app.services.chrome.chrome_service import ChromeService
 from app.services.keyboard_service import KeyboardService
+from app.services.screen.screen_service import ScreenService
 
 master_queue = os.getenv("MASTER_QUEUE")
 context = zmq.Context()
@@ -24,6 +25,7 @@ def match_action(action: str, _data: dict):
         'chrome-open': ChromeService.open_chrome,
         'chrome-login': ChromeService.login_chrome,
         'chrome-youtube': ChromeService.open_youtube,
+        'take-screen': ScreenService.take_screen
     }
     return asyncio.run(action_dict.get(action, default_action)())
 
