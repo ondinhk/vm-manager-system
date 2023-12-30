@@ -40,7 +40,7 @@ spec:
             memory: "256Mi"
             cpu: "0.5"
           limits:
-            memory: "1024Mi"
+            memory: "2048Mi"
             cpu: "4"
         volumeMounts:
         - mountPath: /dev/shm
@@ -106,8 +106,8 @@ spec:
             memory: "256Mi"
             cpu: "0.5"
           limits:
-            memory: "1024Mi"
-            cpu: "3"
+            memory: "2048Mi"
+            cpu: "4"
         volumeMounts:
         - mountPath: /dev/shm
           name: dshm
@@ -129,7 +129,7 @@ spec:
         - name: HTTP_PROXY
           value: {{ item['proxy'] | tojson | safe }}
         - name: GROUP
-          value: {{ item['group'] }}
+          value: "{{ item['group'] }}"
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
         - name: MOUSE_QUEUE
