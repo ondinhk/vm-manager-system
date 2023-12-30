@@ -13,7 +13,7 @@ spec:
         app: worker-master
     spec:
       nodeSelector:
-        kubernetes.io/hostname: worker-node-1
+        kubernetes.io/hostname: worker-1
       initContainers:
         - name: init-service
           image: busybox:1.28
@@ -40,7 +40,7 @@ spec:
             memory: "256Mi"
             cpu: "0.5"
           limits:
-            memory: "1024Mi"
+            memory: "2048Mi"
             cpu: "4"
         volumeMounts:
         - mountPath: /dev/shm
@@ -64,6 +64,8 @@ spec:
           value: ''
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
+        - name: GROUP
+          value: group_fr
       volumes:
       - name: dshm
         emptyDir:
@@ -92,7 +94,7 @@ spec:
           command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
         - name: init-master
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_1\", \"ip_address\": \"ws://192.168.1.11:31000\", \"proxy\": \"None\", \"group\": \"view\"}"']
+          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_1\", \"ip_address\": \"ws://192.168.1.11:31000\", \"proxy\": \"None\", \"group\": \"group_fr\"}"']
       containers:
       - name: worker-container-1
         image: ondinhk/vm-manager-worker:latest
@@ -104,8 +106,8 @@ spec:
             memory: "256Mi"
             cpu: "0.5"
           limits:
-            memory: "1024Mi"
-            cpu: "3"
+            memory: "2048Mi"
+            cpu: "4"
         volumeMounts:
         - mountPath: /dev/shm
           name: dshm
@@ -126,6 +128,8 @@ spec:
           value: ""
         - name: HTTP_PROXY
           value: ""
+        - name: GROUP
+          value: "group_fr"
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
         - name: MOUSE_QUEUE
@@ -158,7 +162,7 @@ spec:
           command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
         - name: init-master
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_2\", \"ip_address\": \"ws://192.168.1.11:31001\", \"proxy\": \"None\", \"group\": \"view\"}"']
+          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_2\", \"ip_address\": \"ws://192.168.1.11:31001\", \"proxy\": \"None\", \"group\": \"group_fr\"}"']
       containers:
       - name: worker-container-2
         image: ondinhk/vm-manager-worker:latest
@@ -170,8 +174,8 @@ spec:
             memory: "256Mi"
             cpu: "0.5"
           limits:
-            memory: "1024Mi"
-            cpu: "3"
+            memory: "2048Mi"
+            cpu: "4"
         volumeMounts:
         - mountPath: /dev/shm
           name: dshm
@@ -192,6 +196,8 @@ spec:
           value: ""
         - name: HTTP_PROXY
           value: ""
+        - name: GROUP
+          value: "group_fr"
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
         - name: MOUSE_QUEUE
@@ -224,7 +230,7 @@ spec:
           command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
         - name: init-master
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_3\", \"ip_address\": \"ws://192.168.1.11:31002\", \"proxy\": \"None\", \"group\": \"view\"}"']
+          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_3\", \"ip_address\": \"ws://192.168.1.11:31002\", \"proxy\": \"None\", \"group\": \"group_fr\"}"']
       containers:
       - name: worker-container-3
         image: ondinhk/vm-manager-worker:latest
@@ -236,8 +242,8 @@ spec:
             memory: "256Mi"
             cpu: "0.5"
           limits:
-            memory: "1024Mi"
-            cpu: "3"
+            memory: "2048Mi"
+            cpu: "4"
         volumeMounts:
         - mountPath: /dev/shm
           name: dshm
@@ -258,6 +264,8 @@ spec:
           value: ""
         - name: HTTP_PROXY
           value: ""
+        - name: GROUP
+          value: "group_fr"
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
         - name: MOUSE_QUEUE
@@ -290,7 +298,7 @@ spec:
           command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
         - name: init-master
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_4\", \"ip_address\": \"ws://192.168.1.11:31003\", \"proxy\": \"None\", \"group\": \"view\"}"']
+          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_4\", \"ip_address\": \"ws://192.168.1.11:31003\", \"proxy\": \"None\", \"group\": \"group_fr\"}"']
       containers:
       - name: worker-container-4
         image: ondinhk/vm-manager-worker:latest
@@ -302,8 +310,8 @@ spec:
             memory: "256Mi"
             cpu: "0.5"
           limits:
-            memory: "1024Mi"
-            cpu: "3"
+            memory: "2048Mi"
+            cpu: "4"
         volumeMounts:
         - mountPath: /dev/shm
           name: dshm
@@ -324,6 +332,8 @@ spec:
           value: ""
         - name: HTTP_PROXY
           value: ""
+        - name: GROUP
+          value: "group_fr"
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
         - name: MOUSE_QUEUE
@@ -356,7 +366,7 @@ spec:
           command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
         - name: init-master
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_5\", \"ip_address\": \"ws://192.168.1.11:31004\", \"proxy\": \"None\", \"group\": \"view\"}"']
+          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_5\", \"ip_address\": \"ws://192.168.1.11:31004\", \"proxy\": \"None\", \"group\": \"group_fr\"}"']
       containers:
       - name: worker-container-5
         image: ondinhk/vm-manager-worker:latest
@@ -368,8 +378,8 @@ spec:
             memory: "256Mi"
             cpu: "0.5"
           limits:
-            memory: "1024Mi"
-            cpu: "3"
+            memory: "2048Mi"
+            cpu: "4"
         volumeMounts:
         - mountPath: /dev/shm
           name: dshm
@@ -390,6 +400,8 @@ spec:
           value: ""
         - name: HTTP_PROXY
           value: ""
+        - name: GROUP
+          value: "group_fr"
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
         - name: MOUSE_QUEUE
@@ -422,7 +434,7 @@ spec:
           command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
         - name: init-master
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_6\", \"ip_address\": \"ws://192.168.1.11:31005\", \"proxy\": \"None\", \"group\": \"view\"}"']
+          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_6\", \"ip_address\": \"ws://192.168.1.11:31005\", \"proxy\": \"None\", \"group\": \"group_nether\"}"']
       containers:
       - name: worker-container-6
         image: ondinhk/vm-manager-worker:latest
@@ -434,8 +446,8 @@ spec:
             memory: "256Mi"
             cpu: "0.5"
           limits:
-            memory: "1024Mi"
-            cpu: "3"
+            memory: "2048Mi"
+            cpu: "4"
         volumeMounts:
         - mountPath: /dev/shm
           name: dshm
@@ -456,6 +468,8 @@ spec:
           value: ""
         - name: HTTP_PROXY
           value: ""
+        - name: GROUP
+          value: "group_nether"
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
         - name: MOUSE_QUEUE
@@ -488,7 +502,7 @@ spec:
           command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
         - name: init-master
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_7\", \"ip_address\": \"ws://192.168.1.11:31006\", \"proxy\": \"None\", \"group\": \"view\"}"']
+          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_7\", \"ip_address\": \"ws://192.168.1.11:31006\", \"proxy\": \"None\", \"group\": \"group_nether\"}"']
       containers:
       - name: worker-container-7
         image: ondinhk/vm-manager-worker:latest
@@ -500,8 +514,8 @@ spec:
             memory: "256Mi"
             cpu: "0.5"
           limits:
-            memory: "1024Mi"
-            cpu: "3"
+            memory: "2048Mi"
+            cpu: "4"
         volumeMounts:
         - mountPath: /dev/shm
           name: dshm
@@ -522,6 +536,8 @@ spec:
           value: ""
         - name: HTTP_PROXY
           value: ""
+        - name: GROUP
+          value: "group_nether"
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
         - name: MOUSE_QUEUE
@@ -554,7 +570,7 @@ spec:
           command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
         - name: init-master
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_7\", \"ip_address\": \"ws://192.168.1.11:31007\", \"proxy\": \"None\", \"group\": \"view\"}"']
+          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_7\", \"ip_address\": \"ws://192.168.1.11:31007\", \"proxy\": \"None\", \"group\": \"group_nether\"}"']
       containers:
       - name: worker-container-8
         image: ondinhk/vm-manager-worker:latest
@@ -566,8 +582,8 @@ spec:
             memory: "256Mi"
             cpu: "0.5"
           limits:
-            memory: "1024Mi"
-            cpu: "3"
+            memory: "2048Mi"
+            cpu: "4"
         volumeMounts:
         - mountPath: /dev/shm
           name: dshm
@@ -588,6 +604,8 @@ spec:
           value: ""
         - name: HTTP_PROXY
           value: ""
+        - name: GROUP
+          value: "group_nether"
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
         - name: MOUSE_QUEUE
@@ -620,7 +638,7 @@ spec:
           command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
         - name: init-master
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_8\", \"ip_address\": \"ws://192.168.1.11:31008\", \"proxy\": \"None\", \"group\": \"view\"}"']
+          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_8\", \"ip_address\": \"ws://192.168.1.11:31008\", \"proxy\": \"None\", \"group\": \"group_nether\"}"']
       containers:
       - name: worker-container-9
         image: ondinhk/vm-manager-worker:latest
@@ -632,8 +650,8 @@ spec:
             memory: "256Mi"
             cpu: "0.5"
           limits:
-            memory: "1024Mi"
-            cpu: "3"
+            memory: "2048Mi"
+            cpu: "4"
         volumeMounts:
         - mountPath: /dev/shm
           name: dshm
@@ -654,6 +672,8 @@ spec:
           value: ""
         - name: HTTP_PROXY
           value: ""
+        - name: GROUP
+          value: "group_nether"
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
         - name: MOUSE_QUEUE
@@ -686,7 +706,7 @@ spec:
           command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
         - name: init-master
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_9\", \"ip_address\": \"ws://192.168.1.11:31009\", \"proxy\": \"None\", \"group\": \"view\"}"']
+          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_9\", \"ip_address\": \"ws://192.168.1.11:31009\", \"proxy\": \"None\", \"group\": \"group_nether\"}"']
       containers:
       - name: worker-container-10
         image: ondinhk/vm-manager-worker:latest
@@ -698,8 +718,8 @@ spec:
             memory: "256Mi"
             cpu: "0.5"
           limits:
-            memory: "1024Mi"
-            cpu: "3"
+            memory: "2048Mi"
+            cpu: "4"
         volumeMounts:
         - mountPath: /dev/shm
           name: dshm
@@ -720,6 +740,8 @@ spec:
           value: ""
         - name: HTTP_PROXY
           value: ""
+        - name: GROUP
+          value: "group_nether"
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
         - name: MOUSE_QUEUE
@@ -752,7 +774,7 @@ spec:
           command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
         - name: init-master
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_10\", \"ip_address\": \"ws://192.168.1.11:31010\", \"proxy\": \"None\", \"group\": \"view\"}"']
+          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_10\", \"ip_address\": \"ws://192.168.1.11:31010\", \"proxy\": \"None\", \"group\": \"group_rus\"}"']
       containers:
       - name: worker-container-11
         image: ondinhk/vm-manager-worker:latest
@@ -764,8 +786,8 @@ spec:
             memory: "256Mi"
             cpu: "0.5"
           limits:
-            memory: "1024Mi"
-            cpu: "3"
+            memory: "2048Mi"
+            cpu: "4"
         volumeMounts:
         - mountPath: /dev/shm
           name: dshm
@@ -786,6 +808,8 @@ spec:
           value: ""
         - name: HTTP_PROXY
           value: ""
+        - name: GROUP
+          value: "group_rus"
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
         - name: MOUSE_QUEUE
@@ -818,7 +842,7 @@ spec:
           command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
         - name: init-master
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_10\", \"ip_address\": \"ws://192.168.1.11:31010\", \"proxy\": \"None\", \"group\": \"view\"}"']
+          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_11\", \"ip_address\": \"ws://192.168.1.11:31011\", \"proxy\": \"None\", \"group\": \"group_rus\"}"']
       containers:
       - name: worker-container-12
         image: ondinhk/vm-manager-worker:latest
@@ -830,8 +854,8 @@ spec:
             memory: "256Mi"
             cpu: "0.5"
           limits:
-            memory: "1024Mi"
-            cpu: "3"
+            memory: "2048Mi"
+            cpu: "4"
         volumeMounts:
         - mountPath: /dev/shm
           name: dshm
@@ -841,7 +865,7 @@ spec:
         - name: RESOLUTION
           value: '800x600'
         - name: VM_NAME
-          value: "VM_10"
+          value: "VM_11"
         - name: USERNAME
           value: ""
         - name: EMAIL
@@ -852,6 +876,8 @@ spec:
           value: ""
         - name: HTTP_PROXY
           value: ""
+        - name: GROUP
+          value: "group_rus"
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
         - name: MOUSE_QUEUE
@@ -884,7 +910,7 @@ spec:
           command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
         - name: init-master
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_11\", \"ip_address\": \"ws://192.168.1.11:31011\", \"proxy\": \"None\", \"group\": \"view\"}"']
+          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_12\", \"ip_address\": \"ws://192.168.1.11:31012\", \"proxy\": \"None\", \"group\": \"group_rus\"}"']
       containers:
       - name: worker-container-13
         image: ondinhk/vm-manager-worker:latest
@@ -896,8 +922,8 @@ spec:
             memory: "256Mi"
             cpu: "0.5"
           limits:
-            memory: "1024Mi"
-            cpu: "3"
+            memory: "2048Mi"
+            cpu: "4"
         volumeMounts:
         - mountPath: /dev/shm
           name: dshm
@@ -907,7 +933,7 @@ spec:
         - name: RESOLUTION
           value: '800x600'
         - name: VM_NAME
-          value: "VM_11"
+          value: "VM_12"
         - name: USERNAME
           value: ""
         - name: EMAIL
@@ -918,6 +944,8 @@ spec:
           value: ""
         - name: HTTP_PROXY
           value: ""
+        - name: GROUP
+          value: "group_rus"
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
         - name: MOUSE_QUEUE
@@ -950,7 +978,7 @@ spec:
           command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
         - name: init-master
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_12\", \"ip_address\": \"ws://192.168.1.11:31012\", \"proxy\": \"None\", \"group\": \"view\"}"']
+          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_13\", \"ip_address\": \"ws://192.168.1.11:31013\", \"proxy\": \"None\", \"group\": \"group_rus\"}"']
       containers:
       - name: worker-container-14
         image: ondinhk/vm-manager-worker:latest
@@ -962,8 +990,8 @@ spec:
             memory: "256Mi"
             cpu: "0.5"
           limits:
-            memory: "1024Mi"
-            cpu: "3"
+            memory: "2048Mi"
+            cpu: "4"
         volumeMounts:
         - mountPath: /dev/shm
           name: dshm
@@ -973,7 +1001,7 @@ spec:
         - name: RESOLUTION
           value: '800x600'
         - name: VM_NAME
-          value: "VM_12"
+          value: "VM_13"
         - name: USERNAME
           value: ""
         - name: EMAIL
@@ -984,6 +1012,8 @@ spec:
           value: ""
         - name: HTTP_PROXY
           value: ""
+        - name: GROUP
+          value: "group_rus"
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
         - name: MOUSE_QUEUE
@@ -1016,7 +1046,7 @@ spec:
           command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
         - name: init-master
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_13\", \"ip_address\": \"ws://192.168.1.11:31013\", \"proxy\": \"None\", \"group\": \"view\"}"']
+          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_14\", \"ip_address\": \"ws://192.168.1.11:31014\", \"proxy\": \"None\", \"group\": \"group_rus\"}"']
       containers:
       - name: worker-container-15
         image: ondinhk/vm-manager-worker:latest
@@ -1028,8 +1058,8 @@ spec:
             memory: "256Mi"
             cpu: "0.5"
           limits:
-            memory: "1024Mi"
-            cpu: "3"
+            memory: "2048Mi"
+            cpu: "4"
         volumeMounts:
         - mountPath: /dev/shm
           name: dshm
@@ -1039,7 +1069,7 @@ spec:
         - name: RESOLUTION
           value: '800x600'
         - name: VM_NAME
-          value: "VM_13"
+          value: "VM_14"
         - name: USERNAME
           value: ""
         - name: EMAIL
@@ -1050,6 +1080,8 @@ spec:
           value: ""
         - name: HTTP_PROXY
           value: ""
+        - name: GROUP
+          value: "group_rus"
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
         - name: MOUSE_QUEUE
@@ -1082,7 +1114,7 @@ spec:
           command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
         - name: init-master
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_14\", \"ip_address\": \"ws://192.168.1.11:31014\", \"proxy\": \"None\", \"group\": \"view\"}"']
+          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_15\", \"ip_address\": \"ws://192.168.1.11:31015\", \"proxy\": \"None\", \"group\": \"group_sing\"}"']
       containers:
       - name: worker-container-16
         image: ondinhk/vm-manager-worker:latest
@@ -1094,8 +1126,8 @@ spec:
             memory: "256Mi"
             cpu: "0.5"
           limits:
-            memory: "1024Mi"
-            cpu: "3"
+            memory: "2048Mi"
+            cpu: "4"
         volumeMounts:
         - mountPath: /dev/shm
           name: dshm
@@ -1105,7 +1137,7 @@ spec:
         - name: RESOLUTION
           value: '800x600'
         - name: VM_NAME
-          value: "VM_14"
+          value: "VM_15"
         - name: USERNAME
           value: ""
         - name: EMAIL
@@ -1116,6 +1148,8 @@ spec:
           value: ""
         - name: HTTP_PROXY
           value: ""
+        - name: GROUP
+          value: "group_sing"
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
         - name: MOUSE_QUEUE
@@ -1148,7 +1182,7 @@ spec:
           command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
         - name: init-master
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_15\", \"ip_address\": \"ws://192.168.1.11:31015\", \"proxy\": \"None\", \"group\": \"view\"}"']
+          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_16\", \"ip_address\": \"ws://192.168.1.11:31016\", \"proxy\": \"None\", \"group\": \"group_sing\"}"']
       containers:
       - name: worker-container-17
         image: ondinhk/vm-manager-worker:latest
@@ -1160,8 +1194,8 @@ spec:
             memory: "256Mi"
             cpu: "0.5"
           limits:
-            memory: "1024Mi"
-            cpu: "3"
+            memory: "2048Mi"
+            cpu: "4"
         volumeMounts:
         - mountPath: /dev/shm
           name: dshm
@@ -1171,7 +1205,7 @@ spec:
         - name: RESOLUTION
           value: '800x600'
         - name: VM_NAME
-          value: "VM_15"
+          value: "VM_16"
         - name: USERNAME
           value: ""
         - name: EMAIL
@@ -1182,6 +1216,8 @@ spec:
           value: ""
         - name: HTTP_PROXY
           value: ""
+        - name: GROUP
+          value: "group_sing"
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
         - name: MOUSE_QUEUE
@@ -1214,7 +1250,7 @@ spec:
           command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
         - name: init-master
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_16\", \"ip_address\": \"ws://192.168.1.11:31016\", \"proxy\": \"None\", \"group\": \"view\"}"']
+          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_17\", \"ip_address\": \"ws://192.168.1.11:31017\", \"proxy\": \"None\", \"group\": \"group_sing\"}"']
       containers:
       - name: worker-container-18
         image: ondinhk/vm-manager-worker:latest
@@ -1226,8 +1262,8 @@ spec:
             memory: "256Mi"
             cpu: "0.5"
           limits:
-            memory: "1024Mi"
-            cpu: "3"
+            memory: "2048Mi"
+            cpu: "4"
         volumeMounts:
         - mountPath: /dev/shm
           name: dshm
@@ -1237,7 +1273,7 @@ spec:
         - name: RESOLUTION
           value: '800x600'
         - name: VM_NAME
-          value: "VM_16"
+          value: "VM_17"
         - name: USERNAME
           value: ""
         - name: EMAIL
@@ -1248,6 +1284,8 @@ spec:
           value: ""
         - name: HTTP_PROXY
           value: ""
+        - name: GROUP
+          value: "group_sing"
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
         - name: MOUSE_QUEUE
@@ -1280,7 +1318,7 @@ spec:
           command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
         - name: init-master
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_17\", \"ip_address\": \"ws://192.168.1.11:31017\", \"proxy\": \"None\", \"group\": \"view\"}"']
+          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_18\", \"ip_address\": \"ws://192.168.1.11:31018\", \"proxy\": \"None\", \"group\": \"group_sing\"}"']
       containers:
       - name: worker-container-19
         image: ondinhk/vm-manager-worker:latest
@@ -1292,8 +1330,8 @@ spec:
             memory: "256Mi"
             cpu: "0.5"
           limits:
-            memory: "1024Mi"
-            cpu: "3"
+            memory: "2048Mi"
+            cpu: "4"
         volumeMounts:
         - mountPath: /dev/shm
           name: dshm
@@ -1303,7 +1341,7 @@ spec:
         - name: RESOLUTION
           value: '800x600'
         - name: VM_NAME
-          value: "VM_17"
+          value: "VM_18"
         - name: USERNAME
           value: ""
         - name: EMAIL
@@ -1314,6 +1352,8 @@ spec:
           value: ""
         - name: HTTP_PROXY
           value: ""
+        - name: GROUP
+          value: "group_sing"
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
         - name: MOUSE_QUEUE
@@ -1346,7 +1386,7 @@ spec:
           command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
         - name: init-master
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_18\", \"ip_address\": \"ws://192.168.1.11:31018\", \"proxy\": \"None\", \"group\": \"view\"}"']
+          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_19\", \"ip_address\": \"ws://192.168.1.11:31019\", \"proxy\": \"None\", \"group\": \"group_sing\"}"']
       containers:
       - name: worker-container-20
         image: ondinhk/vm-manager-worker:latest
@@ -1358,8 +1398,8 @@ spec:
             memory: "256Mi"
             cpu: "0.5"
           limits:
-            memory: "1024Mi"
-            cpu: "3"
+            memory: "2048Mi"
+            cpu: "4"
         volumeMounts:
         - mountPath: /dev/shm
           name: dshm
@@ -1369,7 +1409,7 @@ spec:
         - name: RESOLUTION
           value: '800x600'
         - name: VM_NAME
-          value: "VM_18"
+          value: "VM_19"
         - name: USERNAME
           value: ""
         - name: EMAIL
@@ -1380,6 +1420,8 @@ spec:
           value: ""
         - name: HTTP_PROXY
           value: ""
+        - name: GROUP
+          value: "group_sing"
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
         - name: MOUSE_QUEUE
@@ -1412,7 +1454,7 @@ spec:
           command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
         - name: init-master
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_19\", \"ip_address\": \"ws://192.168.1.11:31019\", \"proxy\": \"None\", \"group\": \"view\"}"']
+          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_20\", \"ip_address\": \"ws://192.168.1.11:31020\", \"proxy\": \"None\", \"group\": \"group_uk\"}"']
       containers:
       - name: worker-container-21
         image: ondinhk/vm-manager-worker:latest
@@ -1424,8 +1466,8 @@ spec:
             memory: "256Mi"
             cpu: "0.5"
           limits:
-            memory: "1024Mi"
-            cpu: "3"
+            memory: "2048Mi"
+            cpu: "4"
         volumeMounts:
         - mountPath: /dev/shm
           name: dshm
@@ -1435,7 +1477,7 @@ spec:
         - name: RESOLUTION
           value: '800x600'
         - name: VM_NAME
-          value: "VM_19"
+          value: "VM_20"
         - name: USERNAME
           value: ""
         - name: EMAIL
@@ -1446,6 +1488,8 @@ spec:
           value: ""
         - name: HTTP_PROXY
           value: ""
+        - name: GROUP
+          value: "group_uk"
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
         - name: MOUSE_QUEUE
@@ -1478,7 +1522,7 @@ spec:
           command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
         - name: init-master
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_20\", \"ip_address\": \"ws://192.168.1.11:31020\", \"proxy\": \"None\", \"group\": \"view\"}"']
+          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_21\", \"ip_address\": \"ws://192.168.1.11:31021\", \"proxy\": \"None\", \"group\": \"group_uk\"}"']
       containers:
       - name: worker-container-22
         image: ondinhk/vm-manager-worker:latest
@@ -1490,8 +1534,8 @@ spec:
             memory: "256Mi"
             cpu: "0.5"
           limits:
-            memory: "1024Mi"
-            cpu: "3"
+            memory: "2048Mi"
+            cpu: "4"
         volumeMounts:
         - mountPath: /dev/shm
           name: dshm
@@ -1501,7 +1545,7 @@ spec:
         - name: RESOLUTION
           value: '800x600'
         - name: VM_NAME
-          value: "VM_20"
+          value: "VM_21"
         - name: USERNAME
           value: ""
         - name: EMAIL
@@ -1512,6 +1556,8 @@ spec:
           value: ""
         - name: HTTP_PROXY
           value: ""
+        - name: GROUP
+          value: "group_uk"
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
         - name: MOUSE_QUEUE
@@ -1544,7 +1590,7 @@ spec:
           command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
         - name: init-master
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_21\", \"ip_address\": \"ws://192.168.1.11:31021\", \"proxy\": \"None\", \"group\": \"view\"}"']
+          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_22\", \"ip_address\": \"ws://192.168.1.11:31022\", \"proxy\": \"None\", \"group\": \"group_uk\"}"']
       containers:
       - name: worker-container-23
         image: ondinhk/vm-manager-worker:latest
@@ -1556,8 +1602,8 @@ spec:
             memory: "256Mi"
             cpu: "0.5"
           limits:
-            memory: "1024Mi"
-            cpu: "3"
+            memory: "2048Mi"
+            cpu: "4"
         volumeMounts:
         - mountPath: /dev/shm
           name: dshm
@@ -1567,7 +1613,7 @@ spec:
         - name: RESOLUTION
           value: '800x600'
         - name: VM_NAME
-          value: "VM_21"
+          value: "VM_22"
         - name: USERNAME
           value: ""
         - name: EMAIL
@@ -1578,6 +1624,8 @@ spec:
           value: ""
         - name: HTTP_PROXY
           value: ""
+        - name: GROUP
+          value: "group_uk"
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
         - name: MOUSE_QUEUE
@@ -1610,7 +1658,7 @@ spec:
           command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
         - name: init-master
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_22\", \"ip_address\": \"ws://192.168.1.11:31022\", \"proxy\": \"None\", \"group\": \"view\"}"']
+          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_23\", \"ip_address\": \"ws://192.168.1.11:31023\", \"proxy\": \"None\", \"group\": \"group_uk\"}"']
       containers:
       - name: worker-container-24
         image: ondinhk/vm-manager-worker:latest
@@ -1622,8 +1670,8 @@ spec:
             memory: "256Mi"
             cpu: "0.5"
           limits:
-            memory: "1024Mi"
-            cpu: "3"
+            memory: "2048Mi"
+            cpu: "4"
         volumeMounts:
         - mountPath: /dev/shm
           name: dshm
@@ -1633,7 +1681,7 @@ spec:
         - name: RESOLUTION
           value: '800x600'
         - name: VM_NAME
-          value: "VM_22"
+          value: "VM_23"
         - name: USERNAME
           value: ""
         - name: EMAIL
@@ -1644,6 +1692,8 @@ spec:
           value: ""
         - name: HTTP_PROXY
           value: ""
+        - name: GROUP
+          value: "group_uk"
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
         - name: MOUSE_QUEUE
@@ -1676,7 +1726,7 @@ spec:
           command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
         - name: init-master
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_23\", \"ip_address\": \"ws://192.168.1.11:31023\", \"proxy\": \"None\", \"group\": \"view\"}"']
+          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_24\", \"ip_address\": \"ws://192.168.1.11:31024\", \"proxy\": \"None\", \"group\": \"group_uk\"}"']
       containers:
       - name: worker-container-25
         image: ondinhk/vm-manager-worker:latest
@@ -1688,8 +1738,8 @@ spec:
             memory: "256Mi"
             cpu: "0.5"
           limits:
-            memory: "1024Mi"
-            cpu: "3"
+            memory: "2048Mi"
+            cpu: "4"
         volumeMounts:
         - mountPath: /dev/shm
           name: dshm
@@ -1699,7 +1749,7 @@ spec:
         - name: RESOLUTION
           value: '800x600'
         - name: VM_NAME
-          value: "VM_23"
+          value: "VM_24"
         - name: USERNAME
           value: ""
         - name: EMAIL
@@ -1710,6 +1760,8 @@ spec:
           value: ""
         - name: HTTP_PROXY
           value: ""
+        - name: GROUP
+          value: "group_uk"
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
         - name: MOUSE_QUEUE
@@ -1742,7 +1794,7 @@ spec:
           command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
         - name: init-master
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_24\", \"ip_address\": \"ws://192.168.1.11:31024\", \"proxy\": \"None\", \"group\": \"view\"}"']
+          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_25\", \"ip_address\": \"ws://192.168.1.11:31025\", \"proxy\": \"None\", \"group\": \"group_us_vir\"}"']
       containers:
       - name: worker-container-26
         image: ondinhk/vm-manager-worker:latest
@@ -1754,8 +1806,8 @@ spec:
             memory: "256Mi"
             cpu: "0.5"
           limits:
-            memory: "1024Mi"
-            cpu: "3"
+            memory: "2048Mi"
+            cpu: "4"
         volumeMounts:
         - mountPath: /dev/shm
           name: dshm
@@ -1765,7 +1817,7 @@ spec:
         - name: RESOLUTION
           value: '800x600'
         - name: VM_NAME
-          value: "VM_24"
+          value: "VM_25"
         - name: USERNAME
           value: ""
         - name: EMAIL
@@ -1776,6 +1828,8 @@ spec:
           value: ""
         - name: HTTP_PROXY
           value: ""
+        - name: GROUP
+          value: "group_us_vir"
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
         - name: MOUSE_QUEUE
@@ -1808,7 +1862,7 @@ spec:
           command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
         - name: init-master
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_25\", \"ip_address\": \"ws://192.168.1.11:31025\", \"proxy\": \"None\", \"group\": \"view\"}"']
+          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_26\", \"ip_address\": \"ws://192.168.1.11:31026\", \"proxy\": \"None\", \"group\": \"group_us_vir\"}"']
       containers:
       - name: worker-container-27
         image: ondinhk/vm-manager-worker:latest
@@ -1820,8 +1874,8 @@ spec:
             memory: "256Mi"
             cpu: "0.5"
           limits:
-            memory: "1024Mi"
-            cpu: "3"
+            memory: "2048Mi"
+            cpu: "4"
         volumeMounts:
         - mountPath: /dev/shm
           name: dshm
@@ -1831,7 +1885,7 @@ spec:
         - name: RESOLUTION
           value: '800x600'
         - name: VM_NAME
-          value: "VM_25"
+          value: "VM_26"
         - name: USERNAME
           value: ""
         - name: EMAIL
@@ -1842,6 +1896,8 @@ spec:
           value: ""
         - name: HTTP_PROXY
           value: ""
+        - name: GROUP
+          value: "group_us_vir"
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
         - name: MOUSE_QUEUE
@@ -1874,7 +1930,7 @@ spec:
           command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
         - name: init-master
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_26\", \"ip_address\": \"ws://192.168.1.11:31026\", \"proxy\": \"None\", \"group\": \"view\"}"']
+          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_27\", \"ip_address\": \"ws://192.168.1.11:31027\", \"proxy\": \"None\", \"group\": \"group_us_vir\"}"']
       containers:
       - name: worker-container-28
         image: ondinhk/vm-manager-worker:latest
@@ -1886,8 +1942,8 @@ spec:
             memory: "256Mi"
             cpu: "0.5"
           limits:
-            memory: "1024Mi"
-            cpu: "3"
+            memory: "2048Mi"
+            cpu: "4"
         volumeMounts:
         - mountPath: /dev/shm
           name: dshm
@@ -1897,7 +1953,7 @@ spec:
         - name: RESOLUTION
           value: '800x600'
         - name: VM_NAME
-          value: "VM_26"
+          value: "VM_27"
         - name: USERNAME
           value: ""
         - name: EMAIL
@@ -1908,6 +1964,8 @@ spec:
           value: ""
         - name: HTTP_PROXY
           value: ""
+        - name: GROUP
+          value: "group_us_vir"
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
         - name: MOUSE_QUEUE
@@ -1940,7 +1998,7 @@ spec:
           command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
         - name: init-master
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_27\", \"ip_address\": \"ws://192.168.1.11:31027\", \"proxy\": \"None\", \"group\": \"view\"}"']
+          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_28\", \"ip_address\": \"ws://192.168.1.11:31028\", \"proxy\": \"None\", \"group\": \"group_us_vir\"}"']
       containers:
       - name: worker-container-29
         image: ondinhk/vm-manager-worker:latest
@@ -1952,8 +2010,8 @@ spec:
             memory: "256Mi"
             cpu: "0.5"
           limits:
-            memory: "1024Mi"
-            cpu: "3"
+            memory: "2048Mi"
+            cpu: "4"
         volumeMounts:
         - mountPath: /dev/shm
           name: dshm
@@ -1963,7 +2021,7 @@ spec:
         - name: RESOLUTION
           value: '800x600'
         - name: VM_NAME
-          value: "VM_27"
+          value: "VM_28"
         - name: USERNAME
           value: ""
         - name: EMAIL
@@ -1974,6 +2032,8 @@ spec:
           value: ""
         - name: HTTP_PROXY
           value: ""
+        - name: GROUP
+          value: "group_us_vir"
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
         - name: MOUSE_QUEUE
@@ -2006,7 +2066,7 @@ spec:
           command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
         - name: init-master
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_28\", \"ip_address\": \"ws://192.168.1.11:31028\", \"proxy\": \"None\", \"group\": \"view\"}"']
+          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_29\", \"ip_address\": \"ws://192.168.1.11:31029\", \"proxy\": \"None\", \"group\": \"group_us_vir\"}"']
       containers:
       - name: worker-container-30
         image: ondinhk/vm-manager-worker:latest
@@ -2018,8 +2078,8 @@ spec:
             memory: "256Mi"
             cpu: "0.5"
           limits:
-            memory: "1024Mi"
-            cpu: "3"
+            memory: "2048Mi"
+            cpu: "4"
         volumeMounts:
         - mountPath: /dev/shm
           name: dshm
@@ -2029,7 +2089,7 @@ spec:
         - name: RESOLUTION
           value: '800x600'
         - name: VM_NAME
-          value: "VM_28"
+          value: "VM_29"
         - name: USERNAME
           value: ""
         - name: EMAIL
@@ -2040,6 +2100,8 @@ spec:
           value: ""
         - name: HTTP_PROXY
           value: ""
+        - name: GROUP
+          value: "group_us_vir"
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
         - name: MOUSE_QUEUE
@@ -2072,7 +2134,7 @@ spec:
           command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
         - name: init-master
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_29\", \"ip_address\": \"ws://192.168.1.11:31029\", \"proxy\": \"None\", \"group\": \"view\"}"']
+          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_30\", \"ip_address\": \"ws://192.168.1.11:31030\", \"proxy\": \"None\", \"group\": \"group_us_ore\"}"']
       containers:
       - name: worker-container-31
         image: ondinhk/vm-manager-worker:latest
@@ -2084,8 +2146,8 @@ spec:
             memory: "256Mi"
             cpu: "0.5"
           limits:
-            memory: "1024Mi"
-            cpu: "3"
+            memory: "2048Mi"
+            cpu: "4"
         volumeMounts:
         - mountPath: /dev/shm
           name: dshm
@@ -2095,7 +2157,7 @@ spec:
         - name: RESOLUTION
           value: '800x600'
         - name: VM_NAME
-          value: "VM_29"
+          value: "VM_30"
         - name: USERNAME
           value: ""
         - name: EMAIL
@@ -2106,6 +2168,8 @@ spec:
           value: ""
         - name: HTTP_PROXY
           value: ""
+        - name: GROUP
+          value: "group_us_ore"
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
         - name: MOUSE_QUEUE
@@ -2138,7 +2202,7 @@ spec:
           command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
         - name: init-master
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_30\", \"ip_address\": \"ws://192.168.1.11:31030\", \"proxy\": \"None\", \"group\": \"view\"}"']
+          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_31\", \"ip_address\": \"ws://192.168.1.11:31031\", \"proxy\": \"None\", \"group\": \"group_us_ore\"}"']
       containers:
       - name: worker-container-32
         image: ondinhk/vm-manager-worker:latest
@@ -2150,8 +2214,8 @@ spec:
             memory: "256Mi"
             cpu: "0.5"
           limits:
-            memory: "1024Mi"
-            cpu: "3"
+            memory: "2048Mi"
+            cpu: "4"
         volumeMounts:
         - mountPath: /dev/shm
           name: dshm
@@ -2161,7 +2225,7 @@ spec:
         - name: RESOLUTION
           value: '800x600'
         - name: VM_NAME
-          value: "VM_30"
+          value: "VM_31"
         - name: USERNAME
           value: ""
         - name: EMAIL
@@ -2172,6 +2236,8 @@ spec:
           value: ""
         - name: HTTP_PROXY
           value: ""
+        - name: GROUP
+          value: "group_us_ore"
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
         - name: MOUSE_QUEUE
@@ -2204,7 +2270,7 @@ spec:
           command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
         - name: init-master
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_31\", \"ip_address\": \"ws://192.168.1.11:31031\", \"proxy\": \"None\", \"group\": \"view\"}"']
+          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_32\", \"ip_address\": \"ws://192.168.1.11:31032\", \"proxy\": \"None\", \"group\": \"group_us_ore\"}"']
       containers:
       - name: worker-container-33
         image: ondinhk/vm-manager-worker:latest
@@ -2216,8 +2282,8 @@ spec:
             memory: "256Mi"
             cpu: "0.5"
           limits:
-            memory: "1024Mi"
-            cpu: "3"
+            memory: "2048Mi"
+            cpu: "4"
         volumeMounts:
         - mountPath: /dev/shm
           name: dshm
@@ -2227,7 +2293,7 @@ spec:
         - name: RESOLUTION
           value: '800x600'
         - name: VM_NAME
-          value: "VM_31"
+          value: "VM_32"
         - name: USERNAME
           value: ""
         - name: EMAIL
@@ -2238,6 +2304,8 @@ spec:
           value: ""
         - name: HTTP_PROXY
           value: ""
+        - name: GROUP
+          value: "group_us_ore"
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
         - name: MOUSE_QUEUE
@@ -2270,7 +2338,7 @@ spec:
           command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
         - name: init-master
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_32\", \"ip_address\": \"ws://192.168.1.11:31032\", \"proxy\": \"None\", \"group\": \"view\"}"']
+          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_33\", \"ip_address\": \"ws://192.168.1.11:31033\", \"proxy\": \"None\", \"group\": \"group_us_ore\"}"']
       containers:
       - name: worker-container-34
         image: ondinhk/vm-manager-worker:latest
@@ -2282,8 +2350,8 @@ spec:
             memory: "256Mi"
             cpu: "0.5"
           limits:
-            memory: "1024Mi"
-            cpu: "3"
+            memory: "2048Mi"
+            cpu: "4"
         volumeMounts:
         - mountPath: /dev/shm
           name: dshm
@@ -2293,7 +2361,7 @@ spec:
         - name: RESOLUTION
           value: '800x600'
         - name: VM_NAME
-          value: "VM_32"
+          value: "VM_33"
         - name: USERNAME
           value: ""
         - name: EMAIL
@@ -2304,6 +2372,8 @@ spec:
           value: ""
         - name: HTTP_PROXY
           value: ""
+        - name: GROUP
+          value: "group_us_ore"
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
         - name: MOUSE_QUEUE
@@ -2336,7 +2406,7 @@ spec:
           command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
         - name: init-master
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_33\", \"ip_address\": \"ws://192.168.1.11:31033\", \"proxy\": \"None\", \"group\": \"view\"}"']
+          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_34\", \"ip_address\": \"ws://192.168.1.11:31034\", \"proxy\": \"None\", \"group\": \"group_us_ore\"}"']
       containers:
       - name: worker-container-35
         image: ondinhk/vm-manager-worker:latest
@@ -2348,74 +2418,8 @@ spec:
             memory: "256Mi"
             cpu: "0.5"
           limits:
-            memory: "1024Mi"
-            cpu: "3"
-        volumeMounts:
-        - mountPath: /dev/shm
-          name: dshm
-        command: ["/bin/sh"]
-        args: ["-c", "/startup.sh & sleep 30 && export DISPLAY=:1 && python /home/ubuntu/code/mouse/client.py & sleep 30 && export DISPLAY=:1 && python /home/ubuntu/code/worker/worker.py"]
-        env:
-        - name: RESOLUTION
-          value: '800x600'
-        - name: VM_NAME
-          value: "VM_33"
-        - name: USERNAME
-          value: ""
-        - name: EMAIL
-          value: ""
-        - name: EMAIL_RECOVER
-          value: ""
-        - name: PASSWORD
-          value: ""
-        - name: HTTP_PROXY
-          value: ""
-        - name: MASTER_QUEUE
-          value: backend-fastapi.default.svc.cluster.local:6000
-        - name: MOUSE_QUEUE
-          value: worker-master.default.svc.cluster.local:5000
-      volumes:
-      - name: dshm
-        emptyDir:
-          medium: Memory
----
-# Deployment W36
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: worker-36
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: worker-36
-  template:
-    metadata:
-      labels:
-        app: worker-36
-    spec:
-      nodeSelector:
-        kubernetes.io/hostname: worker-1
-      initContainers:
-        - name: init-service
-          image: busybox:1.28
-          command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
-        - name: init-master
-          image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_34\", \"ip_address\": \"ws://192.168.1.11:31034\", \"proxy\": \"None\", \"group\": \"view\"}"']
-      containers:
-      - name: worker-container-36
-        image: ondinhk/vm-manager-worker:latest
-        #imagePullPolicy: Always
-        ports:
-        - containerPort: 6081
-        resources:
-          requests:
-            memory: "256Mi"
-            cpu: "0.5"
-          limits:
-            memory: "1024Mi"
-            cpu: "3"
+            memory: "2048Mi"
+            cpu: "4"
         volumeMounts:
         - mountPath: /dev/shm
           name: dshm
@@ -2436,996 +2440,8 @@ spec:
           value: ""
         - name: HTTP_PROXY
           value: ""
-        - name: MASTER_QUEUE
-          value: backend-fastapi.default.svc.cluster.local:6000
-        - name: MOUSE_QUEUE
-          value: worker-master.default.svc.cluster.local:5000
-      volumes:
-      - name: dshm
-        emptyDir:
-          medium: Memory
----
-# Deployment W37
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: worker-37
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: worker-37
-  template:
-    metadata:
-      labels:
-        app: worker-37
-    spec:
-      nodeSelector:
-        kubernetes.io/hostname: worker-1
-      initContainers:
-        - name: init-service
-          image: busybox:1.28
-          command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
-        - name: init-master
-          image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_35\", \"ip_address\": \"ws://192.168.1.11:31035\", \"proxy\": \"None\", \"group\": \"view\"}"']
-      containers:
-      - name: worker-container-37
-        image: ondinhk/vm-manager-worker:latest
-        #imagePullPolicy: Always
-        ports:
-        - containerPort: 6081
-        resources:
-          requests:
-            memory: "256Mi"
-            cpu: "0.5"
-          limits:
-            memory: "1024Mi"
-            cpu: "3"
-        volumeMounts:
-        - mountPath: /dev/shm
-          name: dshm
-        command: ["/bin/sh"]
-        args: ["-c", "/startup.sh & sleep 30 && export DISPLAY=:1 && python /home/ubuntu/code/mouse/client.py & sleep 30 && export DISPLAY=:1 && python /home/ubuntu/code/worker/worker.py"]
-        env:
-        - name: RESOLUTION
-          value: '800x600'
-        - name: VM_NAME
-          value: "VM_35"
-        - name: USERNAME
-          value: ""
-        - name: EMAIL
-          value: ""
-        - name: EMAIL_RECOVER
-          value: ""
-        - name: PASSWORD
-          value: ""
-        - name: HTTP_PROXY
-          value: ""
-        - name: MASTER_QUEUE
-          value: backend-fastapi.default.svc.cluster.local:6000
-        - name: MOUSE_QUEUE
-          value: worker-master.default.svc.cluster.local:5000
-      volumes:
-      - name: dshm
-        emptyDir:
-          medium: Memory
----
-# Deployment W38
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: worker-38
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: worker-38
-  template:
-    metadata:
-      labels:
-        app: worker-38
-    spec:
-      nodeSelector:
-        kubernetes.io/hostname: worker-1
-      initContainers:
-        - name: init-service
-          image: busybox:1.28
-          command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
-        - name: init-master
-          image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_36\", \"ip_address\": \"ws://192.168.1.11:31036\", \"proxy\": \"None\", \"group\": \"view\"}"']
-      containers:
-      - name: worker-container-38
-        image: ondinhk/vm-manager-worker:latest
-        #imagePullPolicy: Always
-        ports:
-        - containerPort: 6081
-        resources:
-          requests:
-            memory: "256Mi"
-            cpu: "0.5"
-          limits:
-            memory: "1024Mi"
-            cpu: "3"
-        volumeMounts:
-        - mountPath: /dev/shm
-          name: dshm
-        command: ["/bin/sh"]
-        args: ["-c", "/startup.sh & sleep 30 && export DISPLAY=:1 && python /home/ubuntu/code/mouse/client.py & sleep 30 && export DISPLAY=:1 && python /home/ubuntu/code/worker/worker.py"]
-        env:
-        - name: RESOLUTION
-          value: '800x600'
-        - name: VM_NAME
-          value: "VM_36"
-        - name: USERNAME
-          value: ""
-        - name: EMAIL
-          value: ""
-        - name: EMAIL_RECOVER
-          value: ""
-        - name: PASSWORD
-          value: ""
-        - name: HTTP_PROXY
-          value: ""
-        - name: MASTER_QUEUE
-          value: backend-fastapi.default.svc.cluster.local:6000
-        - name: MOUSE_QUEUE
-          value: worker-master.default.svc.cluster.local:5000
-      volumes:
-      - name: dshm
-        emptyDir:
-          medium: Memory
----
-# Deployment W39
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: worker-39
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: worker-39
-  template:
-    metadata:
-      labels:
-        app: worker-39
-    spec:
-      nodeSelector:
-        kubernetes.io/hostname: worker-1
-      initContainers:
-        - name: init-service
-          image: busybox:1.28
-          command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
-        - name: init-master
-          image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_37\", \"ip_address\": \"ws://192.168.1.11:31037\", \"proxy\": \"None\", \"group\": \"view\"}"']
-      containers:
-      - name: worker-container-39
-        image: ondinhk/vm-manager-worker:latest
-        #imagePullPolicy: Always
-        ports:
-        - containerPort: 6081
-        resources:
-          requests:
-            memory: "256Mi"
-            cpu: "0.5"
-          limits:
-            memory: "1024Mi"
-            cpu: "3"
-        volumeMounts:
-        - mountPath: /dev/shm
-          name: dshm
-        command: ["/bin/sh"]
-        args: ["-c", "/startup.sh & sleep 30 && export DISPLAY=:1 && python /home/ubuntu/code/mouse/client.py & sleep 30 && export DISPLAY=:1 && python /home/ubuntu/code/worker/worker.py"]
-        env:
-        - name: RESOLUTION
-          value: '800x600'
-        - name: VM_NAME
-          value: "VM_37"
-        - name: USERNAME
-          value: ""
-        - name: EMAIL
-          value: ""
-        - name: EMAIL_RECOVER
-          value: ""
-        - name: PASSWORD
-          value: ""
-        - name: HTTP_PROXY
-          value: ""
-        - name: MASTER_QUEUE
-          value: backend-fastapi.default.svc.cluster.local:6000
-        - name: MOUSE_QUEUE
-          value: worker-master.default.svc.cluster.local:5000
-      volumes:
-      - name: dshm
-        emptyDir:
-          medium: Memory
----
-# Deployment W40
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: worker-40
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: worker-40
-  template:
-    metadata:
-      labels:
-        app: worker-40
-    spec:
-      nodeSelector:
-        kubernetes.io/hostname: worker-1
-      initContainers:
-        - name: init-service
-          image: busybox:1.28
-          command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
-        - name: init-master
-          image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_38\", \"ip_address\": \"ws://192.168.1.11:31038\", \"proxy\": \"None\", \"group\": \"view\"}"']
-      containers:
-      - name: worker-container-40
-        image: ondinhk/vm-manager-worker:latest
-        #imagePullPolicy: Always
-        ports:
-        - containerPort: 6081
-        resources:
-          requests:
-            memory: "256Mi"
-            cpu: "0.5"
-          limits:
-            memory: "1024Mi"
-            cpu: "3"
-        volumeMounts:
-        - mountPath: /dev/shm
-          name: dshm
-        command: ["/bin/sh"]
-        args: ["-c", "/startup.sh & sleep 30 && export DISPLAY=:1 && python /home/ubuntu/code/mouse/client.py & sleep 30 && export DISPLAY=:1 && python /home/ubuntu/code/worker/worker.py"]
-        env:
-        - name: RESOLUTION
-          value: '800x600'
-        - name: VM_NAME
-          value: "VM_38"
-        - name: USERNAME
-          value: ""
-        - name: EMAIL
-          value: ""
-        - name: EMAIL_RECOVER
-          value: ""
-        - name: PASSWORD
-          value: ""
-        - name: HTTP_PROXY
-          value: ""
-        - name: MASTER_QUEUE
-          value: backend-fastapi.default.svc.cluster.local:6000
-        - name: MOUSE_QUEUE
-          value: worker-master.default.svc.cluster.local:5000
-      volumes:
-      - name: dshm
-        emptyDir:
-          medium: Memory
----
-# Deployment W41
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: worker-41
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: worker-41
-  template:
-    metadata:
-      labels:
-        app: worker-41
-    spec:
-      nodeSelector:
-        kubernetes.io/hostname: worker-1
-      initContainers:
-        - name: init-service
-          image: busybox:1.28
-          command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
-        - name: init-master
-          image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_39\", \"ip_address\": \"ws://192.168.1.11:31039\", \"proxy\": \"None\", \"group\": \"view\"}"']
-      containers:
-      - name: worker-container-41
-        image: ondinhk/vm-manager-worker:latest
-        #imagePullPolicy: Always
-        ports:
-        - containerPort: 6081
-        resources:
-          requests:
-            memory: "256Mi"
-            cpu: "0.5"
-          limits:
-            memory: "1024Mi"
-            cpu: "3"
-        volumeMounts:
-        - mountPath: /dev/shm
-          name: dshm
-        command: ["/bin/sh"]
-        args: ["-c", "/startup.sh & sleep 30 && export DISPLAY=:1 && python /home/ubuntu/code/mouse/client.py & sleep 30 && export DISPLAY=:1 && python /home/ubuntu/code/worker/worker.py"]
-        env:
-        - name: RESOLUTION
-          value: '800x600'
-        - name: VM_NAME
-          value: "VM_39"
-        - name: USERNAME
-          value: ""
-        - name: EMAIL
-          value: ""
-        - name: EMAIL_RECOVER
-          value: ""
-        - name: PASSWORD
-          value: ""
-        - name: HTTP_PROXY
-          value: ""
-        - name: MASTER_QUEUE
-          value: backend-fastapi.default.svc.cluster.local:6000
-        - name: MOUSE_QUEUE
-          value: worker-master.default.svc.cluster.local:5000
-      volumes:
-      - name: dshm
-        emptyDir:
-          medium: Memory
----
-# Deployment W42
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: worker-42
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: worker-42
-  template:
-    metadata:
-      labels:
-        app: worker-42
-    spec:
-      nodeSelector:
-        kubernetes.io/hostname: worker-1
-      initContainers:
-        - name: init-service
-          image: busybox:1.28
-          command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
-        - name: init-master
-          image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_40\", \"ip_address\": \"ws://192.168.1.11:31040\", \"proxy\": \"None\", \"group\": \"view\"}"']
-      containers:
-      - name: worker-container-42
-        image: ondinhk/vm-manager-worker:latest
-        #imagePullPolicy: Always
-        ports:
-        - containerPort: 6081
-        resources:
-          requests:
-            memory: "256Mi"
-            cpu: "0.5"
-          limits:
-            memory: "1024Mi"
-            cpu: "3"
-        volumeMounts:
-        - mountPath: /dev/shm
-          name: dshm
-        command: ["/bin/sh"]
-        args: ["-c", "/startup.sh & sleep 30 && export DISPLAY=:1 && python /home/ubuntu/code/mouse/client.py & sleep 30 && export DISPLAY=:1 && python /home/ubuntu/code/worker/worker.py"]
-        env:
-        - name: RESOLUTION
-          value: '800x600'
-        - name: VM_NAME
-          value: "VM_40"
-        - name: USERNAME
-          value: ""
-        - name: EMAIL
-          value: ""
-        - name: EMAIL_RECOVER
-          value: ""
-        - name: PASSWORD
-          value: ""
-        - name: HTTP_PROXY
-          value: ""
-        - name: MASTER_QUEUE
-          value: backend-fastapi.default.svc.cluster.local:6000
-        - name: MOUSE_QUEUE
-          value: worker-master.default.svc.cluster.local:5000
-      volumes:
-      - name: dshm
-        emptyDir:
-          medium: Memory
----
-# Deployment W43
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: worker-43
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: worker-43
-  template:
-    metadata:
-      labels:
-        app: worker-43
-    spec:
-      nodeSelector:
-        kubernetes.io/hostname: worker-1
-      initContainers:
-        - name: init-service
-          image: busybox:1.28
-          command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
-        - name: init-master
-          image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_41\", \"ip_address\": \"ws://192.168.1.11:31041\", \"proxy\": \"None\", \"group\": \"view\"}"']
-      containers:
-      - name: worker-container-43
-        image: ondinhk/vm-manager-worker:latest
-        #imagePullPolicy: Always
-        ports:
-        - containerPort: 6081
-        resources:
-          requests:
-            memory: "256Mi"
-            cpu: "0.5"
-          limits:
-            memory: "1024Mi"
-            cpu: "3"
-        volumeMounts:
-        - mountPath: /dev/shm
-          name: dshm
-        command: ["/bin/sh"]
-        args: ["-c", "/startup.sh & sleep 30 && export DISPLAY=:1 && python /home/ubuntu/code/mouse/client.py & sleep 30 && export DISPLAY=:1 && python /home/ubuntu/code/worker/worker.py"]
-        env:
-        - name: RESOLUTION
-          value: '800x600'
-        - name: VM_NAME
-          value: "VM_41"
-        - name: USERNAME
-          value: ""
-        - name: EMAIL
-          value: ""
-        - name: EMAIL_RECOVER
-          value: ""
-        - name: PASSWORD
-          value: ""
-        - name: HTTP_PROXY
-          value: ""
-        - name: MASTER_QUEUE
-          value: backend-fastapi.default.svc.cluster.local:6000
-        - name: MOUSE_QUEUE
-          value: worker-master.default.svc.cluster.local:5000
-      volumes:
-      - name: dshm
-        emptyDir:
-          medium: Memory
----
-# Deployment W44
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: worker-44
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: worker-44
-  template:
-    metadata:
-      labels:
-        app: worker-44
-    spec:
-      nodeSelector:
-        kubernetes.io/hostname: worker-1
-      initContainers:
-        - name: init-service
-          image: busybox:1.28
-          command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
-        - name: init-master
-          image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_42\", \"ip_address\": \"ws://192.168.1.11:31042\", \"proxy\": \"None\", \"group\": \"view\"}"']
-      containers:
-      - name: worker-container-44
-        image: ondinhk/vm-manager-worker:latest
-        #imagePullPolicy: Always
-        ports:
-        - containerPort: 6081
-        resources:
-          requests:
-            memory: "256Mi"
-            cpu: "0.5"
-          limits:
-            memory: "1024Mi"
-            cpu: "3"
-        volumeMounts:
-        - mountPath: /dev/shm
-          name: dshm
-        command: ["/bin/sh"]
-        args: ["-c", "/startup.sh & sleep 30 && export DISPLAY=:1 && python /home/ubuntu/code/mouse/client.py & sleep 30 && export DISPLAY=:1 && python /home/ubuntu/code/worker/worker.py"]
-        env:
-        - name: RESOLUTION
-          value: '800x600'
-        - name: VM_NAME
-          value: "VM_42"
-        - name: USERNAME
-          value: ""
-        - name: EMAIL
-          value: ""
-        - name: EMAIL_RECOVER
-          value: ""
-        - name: PASSWORD
-          value: ""
-        - name: HTTP_PROXY
-          value: ""
-        - name: MASTER_QUEUE
-          value: backend-fastapi.default.svc.cluster.local:6000
-        - name: MOUSE_QUEUE
-          value: worker-master.default.svc.cluster.local:5000
-      volumes:
-      - name: dshm
-        emptyDir:
-          medium: Memory
----
-# Deployment W45
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: worker-45
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: worker-45
-  template:
-    metadata:
-      labels:
-        app: worker-45
-    spec:
-      nodeSelector:
-        kubernetes.io/hostname: worker-1
-      initContainers:
-        - name: init-service
-          image: busybox:1.28
-          command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
-        - name: init-master
-          image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_43\", \"ip_address\": \"ws://192.168.1.11:31043\", \"proxy\": \"None\", \"group\": \"view\"}"']
-      containers:
-      - name: worker-container-45
-        image: ondinhk/vm-manager-worker:latest
-        #imagePullPolicy: Always
-        ports:
-        - containerPort: 6081
-        resources:
-          requests:
-            memory: "256Mi"
-            cpu: "0.5"
-          limits:
-            memory: "1024Mi"
-            cpu: "3"
-        volumeMounts:
-        - mountPath: /dev/shm
-          name: dshm
-        command: ["/bin/sh"]
-        args: ["-c", "/startup.sh & sleep 30 && export DISPLAY=:1 && python /home/ubuntu/code/mouse/client.py & sleep 30 && export DISPLAY=:1 && python /home/ubuntu/code/worker/worker.py"]
-        env:
-        - name: RESOLUTION
-          value: '800x600'
-        - name: VM_NAME
-          value: "VM_43"
-        - name: USERNAME
-          value: ""
-        - name: EMAIL
-          value: ""
-        - name: EMAIL_RECOVER
-          value: ""
-        - name: PASSWORD
-          value: ""
-        - name: HTTP_PROXY
-          value: ""
-        - name: MASTER_QUEUE
-          value: backend-fastapi.default.svc.cluster.local:6000
-        - name: MOUSE_QUEUE
-          value: worker-master.default.svc.cluster.local:5000
-      volumes:
-      - name: dshm
-        emptyDir:
-          medium: Memory
----
-# Deployment W46
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: worker-46
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: worker-46
-  template:
-    metadata:
-      labels:
-        app: worker-46
-    spec:
-      nodeSelector:
-        kubernetes.io/hostname: worker-1
-      initContainers:
-        - name: init-service
-          image: busybox:1.28
-          command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
-        - name: init-master
-          image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_44\", \"ip_address\": \"ws://192.168.1.11:31044\", \"proxy\": \"None\", \"group\": \"view\"}"']
-      containers:
-      - name: worker-container-46
-        image: ondinhk/vm-manager-worker:latest
-        #imagePullPolicy: Always
-        ports:
-        - containerPort: 6081
-        resources:
-          requests:
-            memory: "256Mi"
-            cpu: "0.5"
-          limits:
-            memory: "1024Mi"
-            cpu: "3"
-        volumeMounts:
-        - mountPath: /dev/shm
-          name: dshm
-        command: ["/bin/sh"]
-        args: ["-c", "/startup.sh & sleep 30 && export DISPLAY=:1 && python /home/ubuntu/code/mouse/client.py & sleep 30 && export DISPLAY=:1 && python /home/ubuntu/code/worker/worker.py"]
-        env:
-        - name: RESOLUTION
-          value: '800x600'
-        - name: VM_NAME
-          value: "VM_44"
-        - name: USERNAME
-          value: ""
-        - name: EMAIL
-          value: ""
-        - name: EMAIL_RECOVER
-          value: ""
-        - name: PASSWORD
-          value: ""
-        - name: HTTP_PROXY
-          value: ""
-        - name: MASTER_QUEUE
-          value: backend-fastapi.default.svc.cluster.local:6000
-        - name: MOUSE_QUEUE
-          value: worker-master.default.svc.cluster.local:5000
-      volumes:
-      - name: dshm
-        emptyDir:
-          medium: Memory
----
-# Deployment W47
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: worker-47
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: worker-47
-  template:
-    metadata:
-      labels:
-        app: worker-47
-    spec:
-      nodeSelector:
-        kubernetes.io/hostname: worker-1
-      initContainers:
-        - name: init-service
-          image: busybox:1.28
-          command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
-        - name: init-master
-          image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_45\", \"ip_address\": \"ws://192.168.1.11:31045\", \"proxy\": \"None\", \"group\": \"view\"}"']
-      containers:
-      - name: worker-container-47
-        image: ondinhk/vm-manager-worker:latest
-        #imagePullPolicy: Always
-        ports:
-        - containerPort: 6081
-        resources:
-          requests:
-            memory: "256Mi"
-            cpu: "0.5"
-          limits:
-            memory: "1024Mi"
-            cpu: "3"
-        volumeMounts:
-        - mountPath: /dev/shm
-          name: dshm
-        command: ["/bin/sh"]
-        args: ["-c", "/startup.sh & sleep 30 && export DISPLAY=:1 && python /home/ubuntu/code/mouse/client.py & sleep 30 && export DISPLAY=:1 && python /home/ubuntu/code/worker/worker.py"]
-        env:
-        - name: RESOLUTION
-          value: '800x600'
-        - name: VM_NAME
-          value: "VM_45"
-        - name: USERNAME
-          value: ""
-        - name: EMAIL
-          value: ""
-        - name: EMAIL_RECOVER
-          value: ""
-        - name: PASSWORD
-          value: ""
-        - name: HTTP_PROXY
-          value: ""
-        - name: MASTER_QUEUE
-          value: backend-fastapi.default.svc.cluster.local:6000
-        - name: MOUSE_QUEUE
-          value: worker-master.default.svc.cluster.local:5000
-      volumes:
-      - name: dshm
-        emptyDir:
-          medium: Memory
----
-# Deployment W48
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: worker-48
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: worker-48
-  template:
-    metadata:
-      labels:
-        app: worker-48
-    spec:
-      nodeSelector:
-        kubernetes.io/hostname: worker-1
-      initContainers:
-        - name: init-service
-          image: busybox:1.28
-          command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
-        - name: init-master
-          image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_46\", \"ip_address\": \"ws://192.168.1.11:31046\", \"proxy\": \"None\", \"group\": \"view\"}"']
-      containers:
-      - name: worker-container-48
-        image: ondinhk/vm-manager-worker:latest
-        #imagePullPolicy: Always
-        ports:
-        - containerPort: 6081
-        resources:
-          requests:
-            memory: "256Mi"
-            cpu: "0.5"
-          limits:
-            memory: "1024Mi"
-            cpu: "3"
-        volumeMounts:
-        - mountPath: /dev/shm
-          name: dshm
-        command: ["/bin/sh"]
-        args: ["-c", "/startup.sh & sleep 30 && export DISPLAY=:1 && python /home/ubuntu/code/mouse/client.py & sleep 30 && export DISPLAY=:1 && python /home/ubuntu/code/worker/worker.py"]
-        env:
-        - name: RESOLUTION
-          value: '800x600'
-        - name: VM_NAME
-          value: "VM_46"
-        - name: USERNAME
-          value: ""
-        - name: EMAIL
-          value: ""
-        - name: EMAIL_RECOVER
-          value: ""
-        - name: PASSWORD
-          value: ""
-        - name: HTTP_PROXY
-          value: ""
-        - name: MASTER_QUEUE
-          value: backend-fastapi.default.svc.cluster.local:6000
-        - name: MOUSE_QUEUE
-          value: worker-master.default.svc.cluster.local:5000
-      volumes:
-      - name: dshm
-        emptyDir:
-          medium: Memory
----
-# Deployment W49
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: worker-49
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: worker-49
-  template:
-    metadata:
-      labels:
-        app: worker-49
-    spec:
-      nodeSelector:
-        kubernetes.io/hostname: worker-1
-      initContainers:
-        - name: init-service
-          image: busybox:1.28
-          command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
-        - name: init-master
-          image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_47\", \"ip_address\": \"ws://192.168.1.11:31047\", \"proxy\": \"None\", \"group\": \"view\"}"']
-      containers:
-      - name: worker-container-49
-        image: ondinhk/vm-manager-worker:latest
-        #imagePullPolicy: Always
-        ports:
-        - containerPort: 6081
-        resources:
-          requests:
-            memory: "256Mi"
-            cpu: "0.5"
-          limits:
-            memory: "1024Mi"
-            cpu: "3"
-        volumeMounts:
-        - mountPath: /dev/shm
-          name: dshm
-        command: ["/bin/sh"]
-        args: ["-c", "/startup.sh & sleep 30 && export DISPLAY=:1 && python /home/ubuntu/code/mouse/client.py & sleep 30 && export DISPLAY=:1 && python /home/ubuntu/code/worker/worker.py"]
-        env:
-        - name: RESOLUTION
-          value: '800x600'
-        - name: VM_NAME
-          value: "VM_47"
-        - name: USERNAME
-          value: ""
-        - name: EMAIL
-          value: ""
-        - name: EMAIL_RECOVER
-          value: ""
-        - name: PASSWORD
-          value: ""
-        - name: HTTP_PROXY
-          value: ""
-        - name: MASTER_QUEUE
-          value: backend-fastapi.default.svc.cluster.local:6000
-        - name: MOUSE_QUEUE
-          value: worker-master.default.svc.cluster.local:5000
-      volumes:
-      - name: dshm
-        emptyDir:
-          medium: Memory
----
-# Deployment W50
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: worker-50
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: worker-50
-  template:
-    metadata:
-      labels:
-        app: worker-50
-    spec:
-      nodeSelector:
-        kubernetes.io/hostname: worker-1
-      initContainers:
-        - name: init-service
-          image: busybox:1.28
-          command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
-        - name: init-master
-          image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_48\", \"ip_address\": \"ws://192.168.1.11:31048\", \"proxy\": \"None\", \"group\": \"view\"}"']
-      containers:
-      - name: worker-container-50
-        image: ondinhk/vm-manager-worker:latest
-        #imagePullPolicy: Always
-        ports:
-        - containerPort: 6081
-        resources:
-          requests:
-            memory: "256Mi"
-            cpu: "0.5"
-          limits:
-            memory: "1024Mi"
-            cpu: "3"
-        volumeMounts:
-        - mountPath: /dev/shm
-          name: dshm
-        command: ["/bin/sh"]
-        args: ["-c", "/startup.sh & sleep 30 && export DISPLAY=:1 && python /home/ubuntu/code/mouse/client.py & sleep 30 && export DISPLAY=:1 && python /home/ubuntu/code/worker/worker.py"]
-        env:
-        - name: RESOLUTION
-          value: '800x600'
-        - name: VM_NAME
-          value: "VM_48"
-        - name: USERNAME
-          value: ""
-        - name: EMAIL
-          value: ""
-        - name: EMAIL_RECOVER
-          value: ""
-        - name: PASSWORD
-          value: ""
-        - name: HTTP_PROXY
-          value: ""
-        - name: MASTER_QUEUE
-          value: backend-fastapi.default.svc.cluster.local:6000
-        - name: MOUSE_QUEUE
-          value: worker-master.default.svc.cluster.local:5000
-      volumes:
-      - name: dshm
-        emptyDir:
-          medium: Memory
----
-# Deployment W51
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: worker-51
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: worker-51
-  template:
-    metadata:
-      labels:
-        app: worker-51
-    spec:
-      nodeSelector:
-        kubernetes.io/hostname: worker-1
-      initContainers:
-        - name: init-service
-          image: busybox:1.28
-          command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
-        - name: init-master
-          image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_49\", \"ip_address\": \"ws://192.168.1.11:31049\", \"proxy\": \"None\", \"group\": \"view\"}"']
-      containers:
-      - name: worker-container-51
-        image: ondinhk/vm-manager-worker:latest
-        #imagePullPolicy: Always
-        ports:
-        - containerPort: 6081
-        resources:
-          requests:
-            memory: "256Mi"
-            cpu: "0.5"
-          limits:
-            memory: "1024Mi"
-            cpu: "3"
-        volumeMounts:
-        - mountPath: /dev/shm
-          name: dshm
-        command: ["/bin/sh"]
-        args: ["-c", "/startup.sh & sleep 30 && export DISPLAY=:1 && python /home/ubuntu/code/mouse/client.py & sleep 30 && export DISPLAY=:1 && python /home/ubuntu/code/worker/worker.py"]
-        env:
-        - name: RESOLUTION
-          value: '800x600'
-        - name: VM_NAME
-          value: "VM_49"
-        - name: USERNAME
-          value: ""
-        - name: EMAIL
-          value: ""
-        - name: EMAIL_RECOVER
-          value: ""
-        - name: PASSWORD
-          value: ""
-        - name: HTTP_PROXY
-          value: ""
+        - name: GROUP
+          value: "group_us_ore"
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
         - name: MOUSE_QUEUE

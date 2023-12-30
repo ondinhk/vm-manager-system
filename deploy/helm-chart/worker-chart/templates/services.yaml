@@ -197,7 +197,7 @@ spec:
   - name: websocket-vnc
     port: 6081
     targetPort: 6081
-    nodePort: 31010
+    nodePort: 31011
   type: NodePort
 ---
 # Service W13
@@ -212,7 +212,7 @@ spec:
   - name: websocket-vnc
     port: 6081
     targetPort: 6081
-    nodePort: 31011
+    nodePort: 31012
   type: NodePort
 ---
 # Service W14
@@ -227,7 +227,7 @@ spec:
   - name: websocket-vnc
     port: 6081
     targetPort: 6081
-    nodePort: 31012
+    nodePort: 31013
   type: NodePort
 ---
 # Service W15
@@ -242,7 +242,7 @@ spec:
   - name: websocket-vnc
     port: 6081
     targetPort: 6081
-    nodePort: 31013
+    nodePort: 31014
   type: NodePort
 ---
 # Service W16
@@ -257,7 +257,7 @@ spec:
   - name: websocket-vnc
     port: 6081
     targetPort: 6081
-    nodePort: 31014
+    nodePort: 31015
   type: NodePort
 ---
 # Service W17
@@ -272,7 +272,7 @@ spec:
   - name: websocket-vnc
     port: 6081
     targetPort: 6081
-    nodePort: 31015
+    nodePort: 31016
   type: NodePort
 ---
 # Service W18
@@ -287,7 +287,7 @@ spec:
   - name: websocket-vnc
     port: 6081
     targetPort: 6081
-    nodePort: 31016
+    nodePort: 31017
   type: NodePort
 ---
 # Service W19
@@ -302,7 +302,7 @@ spec:
   - name: websocket-vnc
     port: 6081
     targetPort: 6081
-    nodePort: 31017
+    nodePort: 31018
   type: NodePort
 ---
 # Service W20
@@ -317,7 +317,7 @@ spec:
   - name: websocket-vnc
     port: 6081
     targetPort: 6081
-    nodePort: 31018
+    nodePort: 31019
   type: NodePort
 ---
 # Service W21
@@ -332,7 +332,7 @@ spec:
   - name: websocket-vnc
     port: 6081
     targetPort: 6081
-    nodePort: 31019
+    nodePort: 31020
   type: NodePort
 ---
 # Service W22
@@ -347,7 +347,7 @@ spec:
   - name: websocket-vnc
     port: 6081
     targetPort: 6081
-    nodePort: 31020
+    nodePort: 31021
   type: NodePort
 ---
 # Service W23
@@ -362,7 +362,7 @@ spec:
   - name: websocket-vnc
     port: 6081
     targetPort: 6081
-    nodePort: 31021
+    nodePort: 31022
   type: NodePort
 ---
 # Service W24
@@ -377,7 +377,7 @@ spec:
   - name: websocket-vnc
     port: 6081
     targetPort: 6081
-    nodePort: 31022
+    nodePort: 31023
   type: NodePort
 ---
 # Service W25
@@ -392,7 +392,7 @@ spec:
   - name: websocket-vnc
     port: 6081
     targetPort: 6081
-    nodePort: 31023
+    nodePort: 31024
   type: NodePort
 ---
 # Service W26
@@ -407,7 +407,7 @@ spec:
   - name: websocket-vnc
     port: 6081
     targetPort: 6081
-    nodePort: 31024
+    nodePort: 31025
   type: NodePort
 ---
 # Service W27
@@ -422,7 +422,7 @@ spec:
   - name: websocket-vnc
     port: 6081
     targetPort: 6081
-    nodePort: 31025
+    nodePort: 31026
   type: NodePort
 ---
 # Service W28
@@ -437,7 +437,7 @@ spec:
   - name: websocket-vnc
     port: 6081
     targetPort: 6081
-    nodePort: 31026
+    nodePort: 31027
   type: NodePort
 ---
 # Service W29
@@ -452,7 +452,7 @@ spec:
   - name: websocket-vnc
     port: 6081
     targetPort: 6081
-    nodePort: 31027
+    nodePort: 31028
   type: NodePort
 ---
 # Service W30
@@ -467,7 +467,7 @@ spec:
   - name: websocket-vnc
     port: 6081
     targetPort: 6081
-    nodePort: 31028
+    nodePort: 31029
   type: NodePort
 ---
 # Service W31
@@ -482,7 +482,7 @@ spec:
   - name: websocket-vnc
     port: 6081
     targetPort: 6081
-    nodePort: 31029
+    nodePort: 31030
   type: NodePort
 ---
 # Service W32
@@ -497,7 +497,7 @@ spec:
   - name: websocket-vnc
     port: 6081
     targetPort: 6081
-    nodePort: 31030
+    nodePort: 31031
   type: NodePort
 ---
 # Service W33
@@ -512,7 +512,7 @@ spec:
   - name: websocket-vnc
     port: 6081
     targetPort: 6081
-    nodePort: 31031
+    nodePort: 31032
   type: NodePort
 ---
 # Service W34
@@ -527,7 +527,7 @@ spec:
   - name: websocket-vnc
     port: 6081
     targetPort: 6081
-    nodePort: 31032
+    nodePort: 31033
   type: NodePort
 ---
 # Service W35
@@ -542,246 +542,6 @@ spec:
   - name: websocket-vnc
     port: 6081
     targetPort: 6081
-    nodePort: 31033
-  type: NodePort
----
-# Service W36
-apiVersion: v1
-kind: Service
-metadata:
-  name: worker-36
-spec:
-  selector:
-    app: worker-36
-  ports:
-  - name: websocket-vnc
-    port: 6081
-    targetPort: 6081
     nodePort: 31034
-  type: NodePort
----
-# Service W37
-apiVersion: v1
-kind: Service
-metadata:
-  name: worker-37
-spec:
-  selector:
-    app: worker-37
-  ports:
-  - name: websocket-vnc
-    port: 6081
-    targetPort: 6081
-    nodePort: 31035
-  type: NodePort
----
-# Service W38
-apiVersion: v1
-kind: Service
-metadata:
-  name: worker-38
-spec:
-  selector:
-    app: worker-38
-  ports:
-  - name: websocket-vnc
-    port: 6081
-    targetPort: 6081
-    nodePort: 31036
-  type: NodePort
----
-# Service W39
-apiVersion: v1
-kind: Service
-metadata:
-  name: worker-39
-spec:
-  selector:
-    app: worker-39
-  ports:
-  - name: websocket-vnc
-    port: 6081
-    targetPort: 6081
-    nodePort: 31037
-  type: NodePort
----
-# Service W40
-apiVersion: v1
-kind: Service
-metadata:
-  name: worker-40
-spec:
-  selector:
-    app: worker-40
-  ports:
-  - name: websocket-vnc
-    port: 6081
-    targetPort: 6081
-    nodePort: 31038
-  type: NodePort
----
-# Service W41
-apiVersion: v1
-kind: Service
-metadata:
-  name: worker-41
-spec:
-  selector:
-    app: worker-41
-  ports:
-  - name: websocket-vnc
-    port: 6081
-    targetPort: 6081
-    nodePort: 31039
-  type: NodePort
----
-# Service W42
-apiVersion: v1
-kind: Service
-metadata:
-  name: worker-42
-spec:
-  selector:
-    app: worker-42
-  ports:
-  - name: websocket-vnc
-    port: 6081
-    targetPort: 6081
-    nodePort: 31040
-  type: NodePort
----
-# Service W43
-apiVersion: v1
-kind: Service
-metadata:
-  name: worker-43
-spec:
-  selector:
-    app: worker-43
-  ports:
-  - name: websocket-vnc
-    port: 6081
-    targetPort: 6081
-    nodePort: 31041
-  type: NodePort
----
-# Service W44
-apiVersion: v1
-kind: Service
-metadata:
-  name: worker-44
-spec:
-  selector:
-    app: worker-44
-  ports:
-  - name: websocket-vnc
-    port: 6081
-    targetPort: 6081
-    nodePort: 31042
-  type: NodePort
----
-# Service W45
-apiVersion: v1
-kind: Service
-metadata:
-  name: worker-45
-spec:
-  selector:
-    app: worker-45
-  ports:
-  - name: websocket-vnc
-    port: 6081
-    targetPort: 6081
-    nodePort: 31043
-  type: NodePort
----
-# Service W46
-apiVersion: v1
-kind: Service
-metadata:
-  name: worker-46
-spec:
-  selector:
-    app: worker-46
-  ports:
-  - name: websocket-vnc
-    port: 6081
-    targetPort: 6081
-    nodePort: 31044
-  type: NodePort
----
-# Service W47
-apiVersion: v1
-kind: Service
-metadata:
-  name: worker-47
-spec:
-  selector:
-    app: worker-47
-  ports:
-  - name: websocket-vnc
-    port: 6081
-    targetPort: 6081
-    nodePort: 31045
-  type: NodePort
----
-# Service W48
-apiVersion: v1
-kind: Service
-metadata:
-  name: worker-48
-spec:
-  selector:
-    app: worker-48
-  ports:
-  - name: websocket-vnc
-    port: 6081
-    targetPort: 6081
-    nodePort: 31046
-  type: NodePort
----
-# Service W49
-apiVersion: v1
-kind: Service
-metadata:
-  name: worker-49
-spec:
-  selector:
-    app: worker-49
-  ports:
-  - name: websocket-vnc
-    port: 6081
-    targetPort: 6081
-    nodePort: 31047
-  type: NodePort
----
-# Service W50
-apiVersion: v1
-kind: Service
-metadata:
-  name: worker-50
-spec:
-  selector:
-    app: worker-50
-  ports:
-  - name: websocket-vnc
-    port: 6081
-    targetPort: 6081
-    nodePort: 31048
-  type: NodePort
----
-# Service W51
-apiVersion: v1
-kind: Service
-metadata:
-  name: worker-51
-spec:
-  selector:
-    app: worker-51
-  ports:
-  - name: websocket-vnc
-    port: 6081
-    targetPort: 6081
-    nodePort: 31049
   type: NodePort
 ---
