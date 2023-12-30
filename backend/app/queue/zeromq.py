@@ -13,7 +13,6 @@ class ZeroMQ:
         logger.info("Init master queue success")
 
     def publish_message(self, data: dict):
-        data['timestamp'] = time.time()
         message = json.dumps(data)
         self.publisher.send_string(message)
         logger.info(f"Publishing: {message}")

@@ -64,6 +64,8 @@ spec:
           value: ''
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
+        - name: GROUP
+          value: group_fr
       volumes:
       - name: dshm
         emptyDir:
@@ -92,7 +94,7 @@ spec:
           command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
         - name: init-master
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"{{ item['vm_name'] }}\", \"ip_address\": \"ws://192.168.1.11:{{ item['port'] }}\", \"proxy\": \"None\", \"group\": \"view\"}"']
+          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"{{ item['vm_name'] }}\", \"ip_address\": \"ws://192.168.1.11:{{ item['port'] }}\", \"proxy\": \"None\", \"group\": \" {{ item['group'] | tojson | safe }}\"}"']
       containers:
       - name: worker-container-{{ loop.index }}
         image: ondinhk/vm-manager-worker:latest
@@ -126,6 +128,8 @@ spec:
           value: {{ item['password'] | tojson | safe }}
         - name: HTTP_PROXY
           value: {{ item['proxy'] | tojson | safe }}
+        - name: GROUP
+          value: {{ item['group'] | tojson | safe }}
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
         - name: MOUSE_QUEUE

@@ -45,15 +45,15 @@ services:
       - '6080:6081'
     volumes:
       - ./vms/code:/home/ubuntu/code
-      - ./images:/home/ubuntu/code/images
+      - ./vms/images:/home/ubuntu/code/images
     shm_size: '2gb'
     environment:
       VM_NAME : 'vm_master'
       RESOLUTION: '800x600'
       MASTER_QUEUE: backend:6000
-      #HTTP_PROXY: 34.41.203.38:3128
-      EMAIL: 01234677431k@gmail.com
-      PASSWORD: 190999khangg@@##
+      GROUP: group_rus
+      EMAIL: 
+      PASSWORD: 
     depends_on:
       - backend
   
@@ -66,16 +66,16 @@ services:
       - '6081:6081'
     volumes:
       - ./vms/code:/home/ubuntu/code
-      - ./images:/home/ubuntu/code/images
+      - ./vms/images:/home/ubuntu/code/images
     shm_size: '2gb'
     environment:
       VM_NAME : 'vm1'
       RESOLUTION: '800x600'
       MOUSE_QUEUE: master:5000
       MASTER_QUEUE: backend:6000
-      #HTTP_PROXY: 34.41.203.38:3128
-      EMAIL: ondinhkbackup@gmail.com
-      PASSWORD: 190999khangg@@##
+      GROUP: group_nether
+      EMAIL: 
+      PASSWORD:
     depends_on:
       - master
       - backend
@@ -89,16 +89,17 @@ services:
       - '6082:6081'
     volumes:
     - ./vms/code:/home/ubuntu/code
-    - ./images:/home/ubuntu/code/images
+    - ./vms/images:/home/ubuntu/code/images
     shm_size: '2gb'
     environment:
       VM_NAME : 'vm2'
       RESOLUTION: '800x600'
       MOUSE_QUEUE: master:5000
       MASTER_QUEUE: backend:6000
-      #HTTP_PROXY: 34.41.203.38:3128
-      EMAIL: ondinhkbackup@gmail.com
-      PASSWORD: 190999khangg@@##
+      GROUP: group_fr
+      EMAIL:
+      PASSWORD:
     depends_on:
       - master
       - backend
+  

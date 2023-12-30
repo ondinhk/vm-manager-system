@@ -1,4 +1,4 @@
-FROM ondinhk/vm-base
+FROM ondinhk/vm-base:proxy-v1
 
 COPY ./code /home/ubuntu/code
 

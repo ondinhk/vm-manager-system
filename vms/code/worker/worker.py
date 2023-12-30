@@ -25,6 +25,8 @@ def match_action(action: str, _data: dict):
         'chrome-open': ChromeService.open_chrome,
         'chrome-login': ChromeService.login_chrome,
         'chrome-youtube': ChromeService.open_youtube,
+        'chrome-proxy': ChromeService.open_proxy,
+        'chrome-proxy-refresh': ChromeService.refresh_proxy(),
         'take-screen': ScreenService.take_screen
     }
     return asyncio.run(action_dict.get(action, default_action)())
@@ -32,10 +34,14 @@ def match_action(action: str, _data: dict):
 
 logger.info('Worker connect backend for sync action success')
 while True:
-    message = subscriber.recv_string()
-    data = json.loads(message)
-    logger.info(data)
-    if data.get('action', None) == 'input-value':
-        KeyboardService().input_text(data.get('data', None)),
-    else:
-        match_action(action=data.get('action'), _data=data)
+    try:
+        message = subscriber.recv_string()
+        data = json.loads(message)
+        logger.info(data)
+        if data.get('action', None) == 'input-value':
+            KeyboardService().input_text(data.get('data', None)),
+        else:
+            match_action(action=data.get('action'), _data=data)
+    except Exception as e:
+        logger.error(e)
+        continue

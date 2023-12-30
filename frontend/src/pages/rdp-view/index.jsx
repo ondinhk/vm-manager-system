@@ -22,21 +22,9 @@ const RDPManage = () => {
         }
     }
 
-    const openChrome = async () => {
+    const sendAction = async (action) => {
         try {
-            await fetch(CONSTANTS['BASE_API'] + '/vms/execute/chrome-open')
-        } catch (error) { }
-    }
-
-    const loginChrome = async () => {
-        try {
-            await fetch(CONSTANTS['BASE_API'] + '/vms/execute/chrome-login')
-        } catch (error) { }
-    }
-
-    const openYoutube = async () => {
-        try {
-            await fetch(CONSTANTS['BASE_API'] + '/vms/execute/chrome-youtube')
+            await fetch(CONSTANTS['BASE_API'] + '/vms/execute/' + action)
         } catch (error) { }
     }
 
@@ -67,14 +55,17 @@ const RDPManage = () => {
                     <Button variant='info' className='me-2' onClick={fetchDataVMs}>
                         Refresh
                     </Button>
-                    <Button variant='success' className='me-2' onClick={openChrome}>
+                    <Button variant='success' className='me-2' onClick={() => sendAction('chrome-open')}>
                         Open Chrome
                     </Button>
-                    <Button variant='secondary' className='me-2' onClick={loginChrome}>
-                        Login Chrome
+                    <Button variant='danger' className='me-2' onClick={() => sendAction('chrome-proxy')}>
+                        Open Proxy
                     </Button>
-                    <Button variant='danger' className='me-2' onClick={openYoutube}>
-                        Open Youtube
+                    <Button variant='info' className='me-2' onClick={() => sendAction('chrome-proxy-refresh')}>
+                        Refresh Proxy
+                    </Button>
+                    <Button variant='secondary' className='me-2' onClick={() => sendAction('chrome-login')}>
+                        Login Chrome
                     </Button>
                 </div>
                 <div className='d-flex align-items-center'>
@@ -90,14 +81,6 @@ const RDPManage = () => {
                 <div>
                     <h3>Active worker: {data.length}</h3>
                 </div>
-                {/* <div>
-                    <Button variant='success' className='me-2'>
-                        Start
-                    </Button>
-                    <Button variant='danger' className='me-2'>
-                        Stop
-                    </Button>
-                </div> */}
             </div>
             <div className={styles.container}>
                 {data.map((vm, index) => (

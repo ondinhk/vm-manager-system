@@ -43,3 +43,19 @@ async def take_screen():
     data = {'action': 'take-screen', 'data': ""}
     queue.publish_message(data=data)
     return 'success'
+
+
+@execute_route.get("/vms/execute/chrome-proxy")
+async def youtube_chrome():
+    queue: ZeroMQ = zero_queue_context.get()
+    data = {'action': 'chrome-proxy', 'data': ''}
+    queue.publish_message(data=data)
+    return 'success'
+
+
+@execute_route.get("/vms/execute/chrome-proxy-refresh")
+async def youtube_chrome():
+    queue: ZeroMQ = zero_queue_context.get()
+    data = {'action': 'chrome-proxy-refresh', 'data': ''}
+    queue.publish_message(data=data)
+    return 'success'

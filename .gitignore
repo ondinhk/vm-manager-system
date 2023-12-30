@@ -151,3 +151,4 @@ ipython-checkpoints/
 Pipfile.lock
 Pipfile.resolved
 
+vms/files/proxy.tar

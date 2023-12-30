@@ -32,7 +32,7 @@ class ImageWithGridApp:
 
 
 if __name__ == "__main__":
-    image_path = "vm2.PNG"
+    image_path = "./todo/14.PNG"
     root = tk.Tk()
     app = ImageWithGridApp(root, image_path)
     root.mainloop()
