@@ -37,7 +37,14 @@ class VMService:
     @classmethod
     async def get_vms(cls):
         data = await cls.mongo_client.read_items()
-        return [VMResponse(id=str(item.get('_id')), **item) for item in data]
+
+        def get_index_from_name(vm):
+            if vm["name"] == 'VM_MASTER':
+                return -1
+            return int(vm["name"].split("_")[1])
+
+        sorted_vm_list = sorted(data, key=get_index_from_name)
+        return [VMResponse(id=str(item.get('_id')), **item) for item in sorted_vm_list]
 
     @classmethod
     async def update_vm(cls, vm_id: str, body: VMModel):

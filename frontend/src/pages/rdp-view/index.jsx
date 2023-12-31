@@ -84,7 +84,7 @@ const RDPManage = () => {
             </div>
             <div className={styles.container}>
                 {data.map((vm, index) => (
-                    <RDPView key={index} name={vm.name} url={vm.ip_address} />
+                    <RDPView key={index} name={vm.name} url={vm.ip_address} group={vm.group} />
                 ))}
             </div>
         </>

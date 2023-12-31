@@ -1,7 +1,7 @@
 import styles from './styles.module.css'
 import { VncScreen } from 'react-vnc';
 
-const RDPView = ({ name, url }) => {
+const RDPView = ({ name, group, url }) => {
     return (
         <>
             <div className={styles.view}>
@@ -15,11 +15,11 @@ const RDPView = ({ name, url }) => {
                         }
                     }}
                     style={{
-                        width: '800px',
-                        height: '600px',
+                        width: '300px',
+                        height: '230px',
                     }}
                 />
-                {name}
+                {name} {group}
             </div>
         </>
     )

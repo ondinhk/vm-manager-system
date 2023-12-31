@@ -74,8 +74,9 @@ class ChromeService:
     @classmethod
     async def select_proxy(cls):
         current_group = os.getenv('GROUP')
+        # Click open select
         await MouseService.click_position(x=480, y=385)
-        await asyncio.sleep(2)
+        await asyncio.sleep(4)
         if current_group == 'group_fr':
             await MouseService.click_position(x=500, y=220)
         elif current_group == 'group_nether':
