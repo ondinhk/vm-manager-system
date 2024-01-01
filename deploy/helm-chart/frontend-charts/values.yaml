@@ -45,7 +45,7 @@ securityContext: {}
 service:
   type: NodePort
   nodePort: 30000
-  port: 80  
+  port: 80
 
 
 ingress:
@@ -97,7 +97,7 @@ volumeMounts: []
 #   readOnly: true
 
 nodeSelector:
-  kubernetes.io/hostname: worker-2-raspi
+  kubernetes.io/hostname: worker-1
 
 tolerations: []
 
@@ -110,7 +110,7 @@ configMap:
 
 backend-charts:
   nodeSelector:
-    kubernetes.io/hostname: worker-2-raspi
+    kubernetes.io/hostname: worker-1
   mongodb:
     nodeSelector:
-      kubernetes.io/hostname: worker-2-raspi
+      kubernetes.io/hostname: worker-1
