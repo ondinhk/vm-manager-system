@@ -98,7 +98,10 @@ volumeMounts: []
 
 nodeSelector:
   kubernetes.io/hostname: worker-1
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 tolerations: []
 
 affinity: {}
@@ -110,7 +113,13 @@ configMap:
 
 backend-charts:
   nodeSelector:
+<<<<<<< Updated upstream
     kubernetes.io/hostname: worker-1
   mongodb:
     nodeSelector:
       kubernetes.io/hostname: worker-1
+=======
+    kubernetes.io/hostname: worker-1  mongodb:
+    nodeSelector:
+      kubernetes.io/hostname: worker-1
+>>>>>>> Stashed changes
