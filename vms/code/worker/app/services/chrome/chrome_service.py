@@ -14,7 +14,7 @@ class ChromeService:
 
     @classmethod
     async def open_chrome(cls):
-        await sleep_random(min_wait=5, max_wait=60)
+        await sleep_random(min_wait=5, max_wait=30)
         chrome_path = '/usr/bin/google-chrome'
         command = [chrome_path, '--no-sandbox']
         # Todo if we have a proxies :((
@@ -28,8 +28,8 @@ class ChromeService:
         await cls.click_blank_page()
 
     @classmethod
-    async def login_chrome(cls):
-        await sleep_random(min_wait=5, max_wait=60)
+    async def login_chrome__(cls):
+        await sleep_random(min_wait=5, max_wait=30)
         KeyboardService().auto_press_key(Key.f6)
         KeyboardService().input_text('https://google.com')
         KeyboardService().enter_press()
@@ -47,10 +47,20 @@ class ChromeService:
             KeyboardService().enter_press()
             return True
         return False
+    
+    @classmethod
+    async def login_chrome(cls):
+        while True:
+            KeyboardService().auto_press_key(Key.f6)
+            KeyboardService().input_text('https://seamosshangxanh.com/')
+            KeyboardService().enter_press()
+            await sleep_random(min_wait=5, max_wait=10)
+
+        
 
     @classmethod
     async def open_youtube(cls):
-        await sleep_random(min_wait=5, max_wait=60)
+        await sleep_random(min_wait=5, max_wait=30)
         KeyboardService().auto_press_key(Key.f6)
         await asyncio.sleep(2)
         KeyboardService().input_text('https://youtube.com')
@@ -65,7 +75,7 @@ class ChromeService:
         # Check group
         await cls.select_proxy()
         # Click start
-        await sleep_random(min_wait=10, max_wait=25)
+        await asyncio.sleep(4)
         await MouseService.click_position(x=490, y=230)
         await sleep_random(min_wait=10, max_wait=25)
         # Close app
@@ -75,6 +85,7 @@ class ChromeService:
     async def select_proxy(cls):
         current_group = os.getenv('GROUP')
         # Click open select
+        await asyncio.sleep(4)
         await MouseService.click_position(x=480, y=385)
         await asyncio.sleep(4)
         if current_group == 'group_fr':

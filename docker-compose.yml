@@ -20,6 +20,8 @@ services:
     build:
       context: ./frontend
     container_name: frontend-react
+    environment:
+      REACT_APP_BACKEND: http://192.168.1.11:8080
     ports:
       - '3000:3000'
     depends_on:
@@ -51,7 +53,7 @@ services:
       VM_NAME : 'vm_master'
       RESOLUTION: '800x600'
       MASTER_QUEUE: backend:6000
-      GROUP: group_rus
+      GROUP: group_fr
       EMAIL: 
       PASSWORD: 
     depends_on:
@@ -73,7 +75,7 @@ services:
       RESOLUTION: '800x600'
       MOUSE_QUEUE: master:5000
       MASTER_QUEUE: backend:6000
-      GROUP: group_nether
+      GROUP: group_fr
       EMAIL: 
       PASSWORD:
     depends_on:
