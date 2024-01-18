@@ -54,7 +54,7 @@ class ChromeService:
             KeyboardService().auto_press_key(Key.f6)
             KeyboardService().input_text('https://seamosshangxanh.com/')
             KeyboardService().enter_press()
-            await sleep_random(min_wait=5, max_wait=10)
+            await sleep_random(min_wait=120, max_wait=300)
 
         
 
@@ -71,6 +71,7 @@ class ChromeService:
     @classmethod
     async def open_proxy(cls):
         # Click popup vpn
+        await sleep_random(min_wait=5, max_wait=30)
         await MouseService.click_position(x=616, y=64)
         # Check group
         await cls.select_proxy()
