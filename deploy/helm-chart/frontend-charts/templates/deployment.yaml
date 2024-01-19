@@ -37,11 +37,11 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
-            - name: BACKEND_URI
+            - name: REACT_APP_BACKEND
               valueFrom:
                 configMapKeyRef:
                   name: {{ include "frontend-charts.fullname" . }}
-                  key: BACKEND_URI
+                  key: REACT_APP_BACKEND
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
