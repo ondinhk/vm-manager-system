@@ -104,7 +104,7 @@ affinity: {}
 
 configMap:
   data:
-    BACKEND_URI: "http://192.168.1.11:30001"
+    REACT_APP_BACKEND: "http://192.168.1.11:30001"
 
 
 backend-charts:
