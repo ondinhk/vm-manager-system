@@ -67,3 +67,11 @@ async def login_chrome():
     data = {'action': 'start-actions', 'data': ''}
     queue.publish_message(data=data)
     return 'success'
+
+@execute_route.get("/vms/execute/press-enter")
+async def login_chrome():
+    queue: ZeroMQ = zero_queue_context.get()
+    data = {'action': 'press-enter', 'data': ''}
+    queue.publish_message(data=data)
+    return 'success'
+

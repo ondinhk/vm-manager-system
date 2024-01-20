@@ -70,8 +70,11 @@ const RDPManage = () => {
                     <Button variant='danger' className='me-2' onClick={() => sendAction('stop-actions')}>
                         Stop actions
                     </Button>
+                    <Button variant='info' className='me-2' onClick={() => sendAction('press-enter')}>
+                        Press enter
+                    </Button>
                 </div>
-                <div className='d-flex align-items-center'>
+                <div className='d-flex align-items-center me-2'>
                     <input
                         type="text"
                         value={inputValue}

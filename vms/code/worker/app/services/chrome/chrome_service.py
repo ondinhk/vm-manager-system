@@ -64,7 +64,7 @@ class ChromeService:
     async def actions_chrome(cls):
         global ACTION_RUN
         idx = 0
-        time_to_get_new_ip = 5  # Default
+        time_to_get_new_ip = 7  # Default
         time_to_relax = 5
         index_relax = 0
         is_open_web = False
@@ -94,18 +94,18 @@ class ChromeService:
                     logger.info("Refresh IP")
                     KeyboardService().ctr_f5()
                     # Reset default value
-                    time_to_get_new_ip = random.randint(5, 8)
+                    time_to_get_new_ip = random.randint(6, 10)
                     idx = 0
                     index_relax += 1
                 # Click random pos
-                time_to_ran_click = random.randint(5, 7)
+                time_to_ran_click = random.randint(6, 10)
                 while time_to_ran_click > 0:
                     click_ran_x = random.randint(190, 600)
                     click_ran_y = random.randint(140, 560)
                     await MouseService.click_position(click_ran_x, click_ran_y)
                     logger.info(f"Click pos {click_ran_x} {click_ran_y}")
                     mouse.position = (click_ran_x, click_ran_y)
-                    mouse.scroll(0, -1)
+                    mouse.scroll(0, -2)
                     await sleep_random(min_wait=10, max_wait=15)
                     time_to_ran_click -= 1
                 # Click new page
@@ -219,4 +219,7 @@ class ChromeService:
         KeyboardService().enter_press()
         await sleep_random(min_wait=5, max_wait=10)
         await MouseService.click_position(x=430, y=440)
-        
+
+    @classmethod
+    async def press_enter(cls):
+        KeyboardService().enter_press()
