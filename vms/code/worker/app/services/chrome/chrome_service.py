@@ -2,6 +2,7 @@ import asyncio
 import os
 import random
 import subprocess
+import time
 
 from pynput.keyboard import Key
 from pynput.mouse import Controller, Button
@@ -64,14 +65,14 @@ class ChromeService:
     async def actions_chrome(cls):
         global ACTION_RUN
         idx = 0
-        time_to_get_new_ip = 7  # Default
-        time_to_relax = 5
+        time_to_get_new_ip = 8  # Default
         index_relax = 0
         is_open_web = False
         ###
         while True:
             while ACTION_RUN:
                 logger.info(f"Run time {idx}/{time_to_get_new_ip}")
+                start_time = time.time()
                 if not is_open_web:
                     logger.info("Open web")
                     KeyboardService().input_text('https://khangon.cloud')
@@ -79,16 +80,6 @@ class ChromeService:
                     KeyboardService().enter_press()
                     await sleep_random(min_wait=5, max_wait=10)
                     is_open_web = True
-                if index_relax == time_to_relax:
-                    logger.info("Relax time")
-                    # Relax time
-                    KeyboardService().new_tab()
-                    await sleep_random(min_wait=2, max_wait=3)
-                    # Close old tab
-                    mouse.position = (160, 40)
-                    mouse.release(Button.middle)
-                    is_open_web = False
-                    await sleep_random(min_wait=120, max_wait=300)
                 if idx == time_to_get_new_ip:
                     # Get new IP
                     logger.info("Refresh IP")
@@ -97,20 +88,22 @@ class ChromeService:
                     time_to_get_new_ip = random.randint(6, 10)
                     idx = 0
                     index_relax += 1
-                # Click random pos
-                time_to_ran_click = random.randint(6, 10)
+                    await sleep_random(min_wait=180, max_wait=300)
+                # Click random pos and scroll to end
+                time_to_ran_click = random.randint(7, 15)
+                await sleep_random(min_wait=60, max_wait=70)
                 while time_to_ran_click > 0:
-                    click_ran_x = random.randint(190, 600)
-                    click_ran_y = random.randint(140, 560)
+                    click_ran_x = random.randint(220, 450)
+                    click_ran_y = random.randint(350, 400)
                     await MouseService.click_position(click_ran_x, click_ran_y)
                     logger.info(f"Click pos {click_ran_x} {click_ran_y}")
                     mouse.position = (click_ran_x, click_ran_y)
                     mouse.scroll(0, -2)
-                    await sleep_random(min_wait=10, max_wait=15)
+                    await sleep_random(min_wait=3, max_wait=6)
                     time_to_ran_click -= 1
                 # Click new page
                 logger.info("Wait to click next page")
-                await sleep_random(min_wait=200, max_wait=300)
+                await sleep_random(min_wait=180, max_wait=300)
                 # Scroll up menu
                 logger.info("Scroll menu")
                 sroll = 10
@@ -122,6 +115,9 @@ class ChromeService:
                 menu_x, menu_y = MENU_POSITION[random.randint(0, 16)]
                 await MouseService.click_position(menu_x, menu_y)
                 logger.info(f"Click menu {menu_x} {menu_y}")
+                end_time = time.time()
+                elapsed_time = end_time - start_time
+                logger.info(f"Time to execute {idx} - {elapsed_time}s")
                 idx += 1
 
     @classmethod

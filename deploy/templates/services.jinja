@@ -12,8 +12,8 @@ spec:
     targetPort: 80
     nodePort: 31998
   - name: websocket-vnc
-    port: 6081
-    targetPort: 6081
+    port: 80
+    targetPort: 80
     nodePort: 31888
   - name: mouse
     port: 5000
@@ -30,8 +30,8 @@ spec:
     app: worker-{{ loop.index }}
   ports:
   - name: websocket-vnc
-    port: 6081
-    targetPort: 6081
+    port: 80
+    targetPort: 80
     nodePort: {{ item['port'] }}
   type: NodePort
 ---{% endfor %}

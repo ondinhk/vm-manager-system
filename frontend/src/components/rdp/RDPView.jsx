@@ -1,13 +1,14 @@
 import styles from './styles.module.css'
-import { VncScreen } from 'react-vnc';
+// import { VncScreen } from 'react-vnc';
 
 const RDPView = ({ name, group, url }) => {
     return (
         <>
             <div className={styles.view}>
-                <VncScreen
+                {/* <VncScreen
                     url={url}
-                    scaleViewport
+                    //scaleViewport
+                    resizeSession
                     background="#000000"
                     rfbOptions={{
                         credentials: {
@@ -15,10 +16,11 @@ const RDPView = ({ name, group, url }) => {
                         }
                     }}
                     style={{
-                        width: '300px',
-                        height: '230px',
+                        width: '900px',
+                        height: '760px',
                     }}
-                />
+                /> */}
+                <iframe title="" width="900" height="760" src={url} frameBorder="0" />
                 {name} {group}
             </div>
         </>

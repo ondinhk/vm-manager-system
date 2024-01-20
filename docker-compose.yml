@@ -44,14 +44,14 @@ services:
       dockerfile: Dockerfile.master
     container_name: master-vm
     ports:
-      - '6081:6081'
+      - '6081:80'
     volumes:
       - ./vms/code:/home/ubuntu/code
       - ./vms/images:/home/ubuntu/code/images
     shm_size: '2gb'
     environment:
       VM_NAME : 'vm_master'
-      RESOLUTION: '1024x768'
+      #RESOLUTION: 1920x1080
       MASTER_QUEUE: backend:6000
     depends_on:
       - backend
@@ -62,14 +62,14 @@ services:
       dockerfile: Dockerfile.worker
     container_name: worker-vm-1
     ports:
-      - '6082:6081'
+      - '6082:80'
     volumes:
       - ./vms/code:/home/ubuntu/code
       - ./vms/images:/home/ubuntu/code/images
     shm_size: '2gb'
     environment:
       VM_NAME : 'vm_1'
-      RESOLUTION: '1024x768'
+      #RESOLUTION: 1920x1080
       MOUSE_QUEUE: master:5000
       MASTER_QUEUE: backend:6000
     depends_on:

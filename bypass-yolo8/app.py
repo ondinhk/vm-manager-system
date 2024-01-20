@@ -108,7 +108,7 @@ if __name__ == '__main__':
     start_time = time.time()
     end_time = time.time()
 
-    image_path = './images/17.PNG'
+    image_path = './images/16.PNG'
     image = cv2.imread(image_path)
     show_img(image)
     # text = convert_image_to_text(image)
