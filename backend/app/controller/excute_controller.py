@@ -13,14 +13,6 @@ async def open_chrome():
     return 'success'
 
 
-@execute_route.get("/vms/execute/chrome-actions")
-async def login_chrome():
-    queue: ZeroMQ = zero_queue_context.get()
-    data = {'action': 'chrome-actions', 'data': ''}
-    queue.publish_message(data=data)
-    return 'success'
-
-
 @execute_route.get("/vms/execute/chrome-youtube")
 async def youtube_chrome():
     queue: ZeroMQ = zero_queue_context.get()
@@ -46,7 +38,7 @@ async def take_screen():
 
 
 @execute_route.get("/vms/execute/chrome-proxy")
-async def youtube_chrome():
+async def proxy_chrome():
     queue: ZeroMQ = zero_queue_context.get()
     data = {'action': 'chrome-proxy', 'data': ''}
     queue.publish_message(data=data)
@@ -54,8 +46,24 @@ async def youtube_chrome():
 
 
 @execute_route.get("/vms/execute/chrome-proxy-refresh")
-async def youtube_chrome():
+async def proxy_refresh_chrome():
     queue: ZeroMQ = zero_queue_context.get()
     data = {'action': 'chrome-proxy-refresh', 'data': ''}
+    queue.publish_message(data=data)
+    return 'success'
+
+
+@execute_route.get("/vms/execute/stop-actions")
+async def stop_action():
+    queue: ZeroMQ = zero_queue_context.get()
+    data = {'action': 'stop-actions', 'data': ''}
+    queue.publish_message(data=data)
+    return 'success'
+
+
+@execute_route.get("/vms/execute/start-actions")
+async def login_chrome():
+    queue: ZeroMQ = zero_queue_context.get()
+    data = {'action': 'start-actions', 'data': ''}
     queue.publish_message(data=data)
     return 'success'

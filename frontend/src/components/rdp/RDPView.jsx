@@ -15,8 +15,8 @@ const RDPView = ({ name, group, url }) => {
                         }
                     }}
                     style={{
-                        width: '800px',
-                        height: '600px',
+                        width: '300px',
+                        height: '230px',
                     }}
                 />
                 {name} {group}

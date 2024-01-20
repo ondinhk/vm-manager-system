@@ -17,3 +17,21 @@ class KeyboardService:
     def enter_press(self):
         self.keyboard.press(Key.enter)
         self.keyboard.release(Key.enter)
+
+    def press_key(self, key):
+        self.keyboard.press(key)
+
+    def release_key(self, key):
+        self.keyboard.release(key)
+
+    def ctr_f5(self):
+        self.keyboard.press(Key.ctrl)
+        self.keyboard.press(Key.f5)
+        self.keyboard.release(Key.f5)
+        self.keyboard.release(Key.ctrl)
+
+    def new_tab(self):
+        self.keyboard.press(Key.ctrl)
+        self.keyboard.press('n')
+        self.keyboard.release('n')
+        self.keyboard.release(Key.ctrl)

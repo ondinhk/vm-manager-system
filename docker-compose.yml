@@ -51,7 +51,7 @@ services:
     shm_size: '2gb'
     environment:
       VM_NAME : 'vm_master'
-      RESOLUTION: '800x600'
+      RESOLUTION: '1024x768'
       MASTER_QUEUE: backend:6000
     depends_on:
       - backend
@@ -69,7 +69,7 @@ services:
     shm_size: '2gb'
     environment:
       VM_NAME : 'vm_1'
-      RESOLUTION: '800x600'
+      RESOLUTION: '1024x768'
       MOUSE_QUEUE: master:5000
       MASTER_QUEUE: backend:6000
     depends_on:

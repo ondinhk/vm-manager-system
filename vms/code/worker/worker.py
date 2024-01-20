@@ -1,6 +1,7 @@
 import asyncio
 import json
 import os
+import threading
 
 import zmq
 
@@ -14,6 +15,7 @@ context = zmq.Context()
 subscriber = context.socket(zmq.SUB)
 subscriber.connect(f"tcp://{master_queue}")
 subscriber.setsockopt_string(zmq.SUBSCRIBE, '')
+logger.info('Worker connect backend for sync action success')
 
 
 def default_action():
@@ -23,17 +25,25 @@ def default_action():
 def match_action(action: str, _data: dict):
     action_dict = {
         'chrome-open': ChromeService.open_chrome,
-        'chrome-actions': ChromeService.actions_chrome,
         'chrome-close': ChromeService.close_chrome,
         'chrome-youtube': ChromeService.open_youtube,
         'chrome-proxy': ChromeService.open_proxy,
         'chrome-proxy-refresh': ChromeService.refresh_proxy,
-        'take-screen': ScreenService.take_screen
+        'take-screen': ScreenService.take_screen,
+        'start-actions': ChromeService.start_actions,
+        'stop-actions': ChromeService.stop_actions,
     }
     return asyncio.run(action_dict.get(action, default_action)())
 
 
-logger.info('Worker connect backend for sync action success')
+def run_action():
+    asyncio.run(ChromeService.actions_chrome())
+
+
+action_thread = threading.Thread(target=run_action)
+action_thread.start()
+logger.info('Worker start thread actions success')
+
 while True:
     try:
         message = subscriber.recv_string()

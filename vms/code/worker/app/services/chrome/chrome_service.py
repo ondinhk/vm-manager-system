@@ -1,16 +1,33 @@
 import asyncio
 import os
+import random
 import subprocess
+
+from pynput.keyboard import Key
+from pynput.mouse import Controller, Button
 
 from app.logger import logger
 from app.services.keyboard_service import KeyboardService
-from pynput.keyboard import Key
-
 from app.services.mouse_service import MouseService
+from app.ultis.constants import MENU_POSITION
 from app.ultis.helper import sleep_random
+
+mouse = Controller()
+ACTION_RUN = False
 
 
 class ChromeService:
+    @classmethod
+    async def start_actions(cls):
+        global ACTION_RUN
+        ACTION_RUN = True
+        logger.info("Start actions")
+
+    @classmethod
+    async def stop_actions(cls):
+        global ACTION_RUN
+        ACTION_RUN = False
+        logger.info("Stop actions")
 
     @classmethod
     async def open_chrome(cls):
@@ -42,14 +59,71 @@ class ChromeService:
             KeyboardService().enter_press()
             return True
         return False
-    
+
     @classmethod
     async def actions_chrome(cls):
+        global ACTION_RUN
+        idx = 0
+        time_to_get_new_ip = 5  # Default
+        time_to_relax = 5
+        index_relax = 0
+        is_open_web = False
+        ###
         while True:
-            KeyboardService().auto_press_key(Key.f6)
-            KeyboardService().input_text('https://seamosshangxanh.com/')
-            KeyboardService().enter_press()
-            await sleep_random(min_wait=120, max_wait=300)
+            while ACTION_RUN:
+                logger.info(f"Run time {idx}/{time_to_get_new_ip}")
+                if not is_open_web:
+                    logger.info("Open web")
+                    KeyboardService().input_text('https://khangon.cloud')
+                    await sleep_random(min_wait=3, max_wait=5)
+                    KeyboardService().enter_press()
+                    await sleep_random(min_wait=5, max_wait=10)
+                    is_open_web = True
+                if index_relax == time_to_relax:
+                    logger.info("Relax time")
+                    # Relax time
+                    KeyboardService().new_tab()
+                    await sleep_random(min_wait=2, max_wait=3)
+                    # Close old tab
+                    mouse.position = (160, 40)
+                    mouse.release(Button.middle)
+                    is_open_web = False
+                    await sleep_random(min_wait=120, max_wait=300)
+                if idx == time_to_get_new_ip:
+                    # Get new IP
+                    logger.info("Refresh IP")
+                    KeyboardService().ctr_f5()
+                    # Reset default value
+                    time_to_get_new_ip = random.randint(5, 8)
+                    idx = 0
+                    index_relax += 1
+                # Click random pos
+                time_to_ran_click = random.randint(5, 7)
+                while time_to_ran_click > 0:
+                    click_ran_x = random.randint(190, 600)
+                    click_ran_y = random.randint(140, 560)
+                    await MouseService.click_position(click_ran_x, click_ran_y)
+                    logger.info(f"Click pos {click_ran_x} {click_ran_y}")
+                    mouse.position = (click_ran_x, click_ran_y)
+                    mouse.scroll(0, -2)
+                    await sleep_random(min_wait=5, max_wait=10)
+                    time_to_ran_click -= 1
+                # Click new page
+                logger.info("Wait to click next page")
+                # await sleep_random(min_wait=120, max_wait=300)
+                # await sleep_random(min_wait=5, max_wait=6)
+                # Scroll up menu
+                logger.info("Scroll menu")
+                sroll = 10
+                while sroll > 0:
+                    mouse.position = (80, 335)
+                    mouse.scroll(0, 20)
+                    sroll -= 1
+                    await sleep_random(min_wait=1, max_wait=2)
+                menu_x, menu_y = MENU_POSITION[random.randint(1, 18)]
+                await MouseService.click_position(menu_x, menu_y)
+                logger.info(f"Click menu {menu_x} {menu_y}")
+                idx += 1
 
     @classmethod
     async def open_youtube(cls):
@@ -122,7 +196,6 @@ class ChromeService:
         # Click no proxy
         await sleep_random(min_wait=1, max_wait=3)
         await MouseService.click_position(x=600, y=125)
-
 
     @classmethod
     async def close_chrome(cls):

@@ -58,17 +58,17 @@ const RDPManage = () => {
                     <Button variant='success' className='me-2' onClick={() => sendAction('chrome-open')}>
                         Open Chrome
                     </Button>
-                    <Button variant='danger' className='me-2' onClick={() => sendAction('chrome-proxy')}>
+                    <Button variant='success' className='me-2' onClick={() => sendAction('chrome-proxy')}>
                         Open Proxy
                     </Button>
-                    <Button variant='info' className='me-2' onClick={() => sendAction('chrome-proxy-refresh')}>
+                    <Button variant='danger' className='me-2' onClick={() => sendAction('chrome-proxy-refresh')}>
                         Stop Proxy
                     </Button>
-                    <Button variant='info' className='me-2' onClick={() => sendAction('chrome-actions')}>
-                        Actions
+                    <Button variant='success' className='me-2' onClick={() => sendAction('start-actions')}>
+                        Start actions
                     </Button>
-                    <Button variant='info' className='me-2' onClick={() => sendAction('chrome-close')}>
-                        Close
+                    <Button variant='danger' className='me-2' onClick={() => sendAction('stop-actions')}>
+                        Stop actions
                     </Button>
                 </div>
                 <div className='d-flex align-items-center'>

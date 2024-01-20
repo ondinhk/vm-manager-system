@@ -18,10 +18,8 @@ COPY ./code/requirements.txt /home/ubuntu/code/requirements.txt
 RUN sudo -H pip3 install -r /home/ubuntu/code/requirements.txt
 
 COPY ./code /home/ubuntu/code
-COPY ./files/Google.desktop /home/ubuntu/Desktop/Google.desktop
 RUN touch /home/ubuntu/.Xauthority && touch /root/.Xauthority
 
-ENTRYPOINT ["sh","-c", "/startup.sh & sleep 20 && export DISPLAY=:1 && python /home/ubuntu/code/sync_mouse/master.py"]
-
+# ENTRYPOINT ["sh","-c", "/startup.sh & sleep 20 && export DISPLAY=:1 && python /home/ubuntu/code/sync_mouse/master.py"]
 # Client
 # ENTRYPOINT ["sh","-c", "/startup.sh & sleep 20 && export DISPLAY=:1 && python /home/ubuntu/code/sync_mouse/client.py"]
