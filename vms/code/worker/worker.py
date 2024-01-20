@@ -23,10 +23,11 @@ def default_action():
 def match_action(action: str, _data: dict):
     action_dict = {
         'chrome-open': ChromeService.open_chrome,
-        'chrome-login': ChromeService.login_chrome,
+        'chrome-actions': ChromeService.actions_chrome,
+        'chrome-close': ChromeService.close_chrome,
         'chrome-youtube': ChromeService.open_youtube,
         'chrome-proxy': ChromeService.open_proxy,
-        'chrome-proxy-refresh': ChromeService.refresh_proxy(),
+        'chrome-proxy-refresh': ChromeService.refresh_proxy,
         'take-screen': ScreenService.take_screen
     }
     return asyncio.run(action_dict.get(action, default_action)())

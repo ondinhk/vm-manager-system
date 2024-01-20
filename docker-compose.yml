@@ -21,7 +21,7 @@ services:
       context: ./frontend
     container_name: frontend-react
     environment:
-      REACT_APP_BACKEND: http://192.168.1.11:8080
+      REACT_APP_BACKEND: http://127.0.0.1:8080
     ports:
       - '3000:3000'
     depends_on:
@@ -44,7 +44,7 @@ services:
       dockerfile: Dockerfile.master
     container_name: master-vm
     ports:
-      - '6080:6081'
+      - '6081:6081'
     volumes:
       - ./vms/code:/home/ubuntu/code
       - ./vms/images:/home/ubuntu/code/images
@@ -53,9 +53,6 @@ services:
       VM_NAME : 'vm_master'
       RESOLUTION: '800x600'
       MASTER_QUEUE: backend:6000
-      GROUP: group_fr
-      EMAIL: 
-      PASSWORD: 
     depends_on:
       - backend
   
@@ -65,42 +62,16 @@ services:
       dockerfile: Dockerfile.worker
     container_name: worker-vm-1
     ports:
-      - '6081:6081'
+      - '6082:6081'
     volumes:
       - ./vms/code:/home/ubuntu/code
       - ./vms/images:/home/ubuntu/code/images
     shm_size: '2gb'
     environment:
-      VM_NAME : 'vm1'
+      VM_NAME : 'vm_1'
       RESOLUTION: '800x600'
       MOUSE_QUEUE: master:5000
       MASTER_QUEUE: backend:6000
-      GROUP: group_fr
-      EMAIL: 
-      PASSWORD:
-    depends_on:
-      - master
-      - backend
-
-  worker2:
-    build:
-      context: ./vms
-      dockerfile: Dockerfile.worker
-    container_name: worker-vm-2
-    ports:
-      - '6082:6081'
-    volumes:
-    - ./vms/code:/home/ubuntu/code
-    - ./vms/images:/home/ubuntu/code/images
-    shm_size: '2gb'
-    environment:
-      VM_NAME : 'vm2'
-      RESOLUTION: '800x600'
-      MOUSE_QUEUE: master:5000
-      MASTER_QUEUE: backend:6000
-      GROUP: group_fr
-      EMAIL:
-      PASSWORD:
     depends_on:
       - master
       - backend

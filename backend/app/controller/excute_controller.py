@@ -13,10 +13,10 @@ async def open_chrome():
     return 'success'
 
 
-@execute_route.get("/vms/execute/chrome-login")
+@execute_route.get("/vms/execute/chrome-actions")
 async def login_chrome():
     queue: ZeroMQ = zero_queue_context.get()
-    data = {'action': 'chrome-login', 'data': ''}
+    data = {'action': 'chrome-actions', 'data': ''}
     queue.publish_message(data=data)
     return 'success'
 

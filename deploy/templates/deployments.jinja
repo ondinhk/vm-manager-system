@@ -26,7 +26,7 @@ spec:
           command: ['sh', '-c', "until curl -X DELETE http://192.168.1.11:30001/vms; do echo waiting for delete vms collection; sleep 2; done"]
         - name: init-master
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_MASTER\", \"ip_address\": \"ws://192.168.1.11:31999\", \"proxy\": \"None\", \"group\": \"view\"}"']
+          command: ['sh', '-c', 'curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_0\", \"ip_address\": \"ws://192.168.1.11:31999\", \"proxy\": \"None\", \"group\": \"view\"}"']
       containers:
       - name: worker-container-master
         image: ondinhk/vm-manager-master:latest
@@ -52,20 +52,8 @@ spec:
           value: '800x600'
         - name: VM_NAME
           value: 'vm_master'
-        - name: USERNAME
-          value: 'bluethunder77'
-        - name: EMAIL
-          value: '01234677431k@gmail.com'
-        - name: EMAIL_RECOVER
-          value: ''
-        - name: PASSWORD
-          value: '190999khangg@@##'
-        - name: HTTP_PROXY
-          value: ''
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
-        - name: GROUP
-          value: group_fr
       volumes:
       - name: dshm
         emptyDir:
@@ -94,7 +82,7 @@ spec:
           command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
         - name: init-master
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"{{ item['vm_name'] }}\", \"ip_address\": \"ws://192.168.1.11:{{ item['port'] }}\", \"proxy\": \"None\", \"group\": \"{{ item['group'] }}\"}"']
+          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"{{ item['vm_name'] }}\", \"ip_address\": \"ws://192.168.1.11/{{ item['vm_name'] }}\", \"proxy\": \"None\", \"group\": \"{{ item['group'] }}\"}"']
       containers:
       - name: worker-container-{{ loop.index }}
         image: ondinhk/vm-manager-worker:latest
@@ -118,18 +106,6 @@ spec:
           value: '800x600'
         - name: VM_NAME
           value: {{ item['vm_name'] | tojson | safe }}
-        - name: USERNAME
-          value: {{ item['username'] | tojson | safe }}
-        - name: EMAIL
-          value: {{ item['email'] | tojson | safe }}
-        - name: EMAIL_RECOVER
-          value: {{ item['email_recover'] | tojson | safe }}
-        - name: PASSWORD
-          value: {{ item['password'] | tojson | safe }}
-        - name: HTTP_PROXY
-          value: {{ item['proxy'] | tojson | safe }}
-        - name: GROUP
-          value: "{{ item['group'] }}"
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
         - name: MOUSE_QUEUE

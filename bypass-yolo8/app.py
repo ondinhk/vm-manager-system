@@ -108,11 +108,12 @@ if __name__ == '__main__':
     start_time = time.time()
     end_time = time.time()
 
-    image_path = './images/todo/VM_39.PNG'
+    image_path = './images/15.PNG'
     image = cv2.imread(image_path)
-    text = convert_image_to_text(image)
-    index_name = get_index_name(text)
-    calculate_image(image_path, int(index_name))
-
-    elapsed_time = end_time - start_time
-    print(f"Time taken: {elapsed_time} seconds")
+    show_img(image)
+    # text = convert_image_to_text(image)
+    # index_name = get_index_name(text)
+    # calculate_image(image_path, int(index_name))
+    #
+    # elapsed_time = end_time - start_time
+    # print(f"Time taken: {elapsed_time} seconds")

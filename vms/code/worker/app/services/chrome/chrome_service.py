@@ -14,18 +14,13 @@ class ChromeService:
 
     @classmethod
     async def open_chrome(cls):
-        await sleep_random(min_wait=5, max_wait=30)
-        chrome_path = '/usr/bin/google-chrome'
-        command = [chrome_path, '--no-sandbox']
-        # Todo if we have a proxies :((
-        # proxy = 'http://104.19.112.172:80'
-        # if proxy:
-        #     command = [chrome_path, '%U', '--no-sandbox', f'--proxy-server={proxy}']
+        await sleep_random(min_wait=1, max_wait=4)
+        chrome_path = 'firefox'
+        command = [chrome_path]
         subprocess.Popen(command, close_fds=True, start_new_session=True)
-        # Close warning no-sandbox
         await asyncio.sleep(5)
-        await MouseService.click_position(x=775, y=148)
-        await cls.click_blank_page()
+        # await MouseService.click_position(x=775, y=148)
+        # await cls.click_blank_page()
 
     @classmethod
     async def login_chrome__(cls):
@@ -49,14 +44,12 @@ class ChromeService:
         return False
     
     @classmethod
-    async def login_chrome(cls):
+    async def actions_chrome(cls):
         while True:
             KeyboardService().auto_press_key(Key.f6)
             KeyboardService().input_text('https://seamosshangxanh.com/')
             KeyboardService().enter_press()
             await sleep_random(min_wait=120, max_wait=300)
-
-        
 
     @classmethod
     async def open_youtube(cls):
@@ -69,7 +62,7 @@ class ChromeService:
         return True
 
     @classmethod
-    async def open_proxy(cls):
+    async def open_proxy_veepn(cls):
         # Click popup vpn
         await sleep_random(min_wait=5, max_wait=30)
         await MouseService.click_position(x=616, y=64)
@@ -81,6 +74,15 @@ class ChromeService:
         await sleep_random(min_wait=10, max_wait=25)
         # Close app
         await cls.click_blank_page()
+
+    @classmethod
+    async def open_proxy(cls):
+        # Open tab ext
+        await sleep_random(min_wait=1, max_wait=3)
+        await MouseService.click_position(x=740, y=85)
+        # Click random ip
+        await sleep_random(min_wait=1, max_wait=3)
+        await MouseService.click_position(x=600, y=160)
 
     @classmethod
     async def select_proxy(cls):
@@ -114,14 +116,14 @@ class ChromeService:
 
     @classmethod
     async def refresh_proxy(cls):
-        # Click popup vpn
-        await MouseService.click_position(x=616, y=64)
-        # Click stop
-        await sleep_random(min_wait=10, max_wait=25)
-        await MouseService.click_position(x=490, y=230)
-        await sleep_random(min_wait=10, max_wait=25)
-        # Click Start
-        await MouseService.click_position(x=490, y=230)
-        await sleep_random(min_wait=10, max_wait=25)
-        # Close app
-        await cls.click_blank_page()
+        # Open tab ext
+        await sleep_random(min_wait=1, max_wait=3)
+        await MouseService.click_position(x=740, y=85)
+        # Click no proxy
+        await sleep_random(min_wait=1, max_wait=3)
+        await MouseService.click_position(x=600, y=125)
+
+
+    @classmethod
+    async def close_chrome(cls):
+        await MouseService.click_position(x=791, y=12)
