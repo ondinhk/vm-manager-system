@@ -32,6 +32,7 @@ def match_action(action: str, _data: dict):
         'take-screen': ScreenService.take_screen,
         'start-actions': ChromeService.start_actions,
         'stop-actions': ChromeService.stop_actions,
+        'install': ChromeService.install,
     }
     return asyncio.run(action_dict.get(action, default_action)())
 

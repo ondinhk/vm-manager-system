@@ -23,10 +23,10 @@ spec:
           command: ['sh', '-c', "until nslookup backend-fastapi.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for check backend; sleep 2; done"]
         - name: delete-collection
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', "until curl -X DELETE http://192.168.1.11:30001/vms; do echo waiting for delete vms collection; sleep 2; done"]
+          command: ['sh', '-c', "until curl -X DELETE http://odkhang.ddns.net:8999/vms; do echo waiting for delete vms collection; sleep 2; done"]
         - name: init-master
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_0\", \"ip_address\": \"ws://192.168.1.11:31999\", \"proxy\": \"None\", \"group\": \"view\"}"']
+          command: ['sh', '-c', 'curl -X POST http://odkhang.ddns.net:8999/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"VM_0\", \"ip_address\": \"ws://odkhang.ddns.net:31999\", \"proxy\": \"None\", \"group\": \"view\"}"']
       containers:
       - name: worker-container-master
         image: ondinhk/vm-manager-master:latest
@@ -82,7 +82,7 @@ spec:
           command: ['sh', '-c', "until nslookup worker-master.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init service; sleep 2; done"]
         - name: init-master
           image: curlimages/curl:8.5.0
-          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://192.168.1.11:30001/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"{{ item['vm_name'] }}\", \"ip_address\": \"ws://192.168.1.11:{{ item['port'] }}\", \"proxy\": \"None\", \"group\": \"{{ item['group'] }}\"}"']
+          command: ['sh', '-c', 'echo \"sleep 10s\" && sleep 10 && curl -X POST http://odkhang.ddns.net:8999/vms -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\": \"{{ item['vm_name'] }}\", \"ip_address\": \"ws://odkhang.ddns.net:{{ item['ddns'] }}\", \"proxy\": \"None\", \"group\": \"{{ item['group'] }}\"}"']
       containers:
       - name: worker-container-{{ loop.index }}
         image: ondinhk/vm-manager-worker:latest

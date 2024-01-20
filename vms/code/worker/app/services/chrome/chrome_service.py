@@ -105,21 +105,21 @@ class ChromeService:
                     await MouseService.click_position(click_ran_x, click_ran_y)
                     logger.info(f"Click pos {click_ran_x} {click_ran_y}")
                     mouse.position = (click_ran_x, click_ran_y)
-                    mouse.scroll(0, -2)
-                    await sleep_random(min_wait=5, max_wait=10)
+                    mouse.scroll(0, -1)
+                    await sleep_random(min_wait=10, max_wait=15)
                     time_to_ran_click -= 1
                 # Click new page
                 logger.info("Wait to click next page")
-                await sleep_random(min_wait=120, max_wait=300)
+                await sleep_random(min_wait=200, max_wait=300)
                 # Scroll up menu
                 logger.info("Scroll menu")
                 sroll = 10
                 while sroll > 0:
                     mouse.position = (80, 335)
-                    mouse.scroll(0, 20)
+                    mouse.scroll(0, 5)
                     sroll -= 1
                     await sleep_random(min_wait=1, max_wait=2)
-                menu_x, menu_y = MENU_POSITION[random.randint(1, 18)]
+                menu_x, menu_y = MENU_POSITION[random.randint(0, 16)]
                 await MouseService.click_position(menu_x, menu_y)
                 logger.info(f"Click menu {menu_x} {menu_y}")
                 idx += 1
@@ -199,3 +199,24 @@ class ChromeService:
     @classmethod
     async def close_chrome(cls):
         await MouseService.click_position(x=791, y=12)
+
+    @classmethod
+    async def install(cls):
+        await sleep_random(min_wait=2, max_wait=3)
+        KeyboardService().new_tab()
+        await sleep_random(min_wait=2, max_wait=3)
+        # Close old tab
+        mouse.position = (160, 40)
+        mouse.release(Button.middle)
+        await sleep_random(min_wait=2, max_wait=3)
+        # Close old tab
+        mouse.position = (160, 40)
+        mouse.release(Button.middle)
+        # Ext install
+        url = 'https://addons.mozilla.org/en-US/firefox/addon/iproyal-proxy-manager/'
+        KeyboardService().input_text(url)
+        await asyncio.sleep(6)
+        KeyboardService().enter_press()
+        await sleep_random(min_wait=5, max_wait=10)
+        await MouseService.click_position(x=430, y=440)
+        
