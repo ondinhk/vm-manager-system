@@ -44,7 +44,7 @@ services:
       dockerfile: Dockerfile.master
     container_name: master-vm
     ports:
-      - '6081:80'
+      - '6081:6081'
     volumes:
       - ./vms/code:/home/ubuntu/code
       - ./vms/images:/home/ubuntu/code/images
@@ -62,7 +62,7 @@ services:
       dockerfile: Dockerfile.worker
     container_name: worker-vm-1
     ports:
-      - '6082:80'
+      - '6082:6081'
     volumes:
       - ./vms/code:/home/ubuntu/code
       - ./vms/images:/home/ubuntu/code/images
