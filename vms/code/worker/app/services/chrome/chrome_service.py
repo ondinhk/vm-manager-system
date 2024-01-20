@@ -110,8 +110,7 @@ class ChromeService:
                     time_to_ran_click -= 1
                 # Click new page
                 logger.info("Wait to click next page")
-                # await sleep_random(min_wait=120, max_wait=300)
-                # await sleep_random(min_wait=5, max_wait=6)
+                await sleep_random(min_wait=120, max_wait=300)
                 # Scroll up menu
                 logger.info("Scroll menu")
                 sroll = 10
