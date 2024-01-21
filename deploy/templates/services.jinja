@@ -7,10 +7,10 @@ spec:
   selector:
     app: worker-master
   ports:
-#  - name: client-novcn
-#    port: 80
-#    targetPort: 80
-#    nodePort: 31998
+  - name: client-novcn
+    port: 80
+    targetPort: 80
+    nodePort: 31777
   - name: websocket-vnc
     port: 6081
     targetPort: 6081
