@@ -54,6 +54,10 @@ spec:
           value: 'vm_master'
         - name: MASTER_QUEUE
           value: backend-fastapi.default.svc.cluster.local:6000
+        - name: USERNAME_PROXY
+          value: 
+        - name: PASSWORD_PROXY
+          value: 
       volumes:
       - name: dshm
         emptyDir:
@@ -110,6 +114,10 @@ spec:
           value: backend-fastapi.default.svc.cluster.local:6000
         - name: MOUSE_QUEUE
           value: worker-master.default.svc.cluster.local:5000
+        - name: USERNAME_PROXY
+          value: 
+        - name: PASSWORD_PROXY
+          value:
       volumes:
       - name: dshm
         emptyDir:

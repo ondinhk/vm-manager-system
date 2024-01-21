@@ -59,11 +59,11 @@ const RDPManage = () => {
                         Open Chrome
                     </Button>
                     <Button variant='success' className='me-2' onClick={() => sendAction('chrome-proxy')}>
-                        Open Proxy
+                        Login Proxy
                     </Button>
-                    <Button variant='danger' className='me-2' onClick={() => sendAction('chrome-proxy-refresh')}>
+                    {/* <Button variant='danger' className='me-2' onClick={() => sendAction('chrome-proxy-refresh')}>
                         Stop Proxy
-                    </Button>
+                    </Button> */}
                     <Button variant='success' className='me-2' onClick={() => sendAction('start-actions')}>
                         Start actions
                     </Button>
@@ -85,7 +85,7 @@ const RDPManage = () => {
                     </Button>
                 </div>
                 <div>
-                    <h3>Active worker: {data.length}</h3>
+                    <h5>Active worker: {data.length}</h5>
                 </div>
             </div>
             <div className={styles.container}>

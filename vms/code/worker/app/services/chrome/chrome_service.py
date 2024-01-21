@@ -10,7 +10,7 @@ from pynput.mouse import Controller, Button
 from app.logger import logger
 from app.services.keyboard_service import KeyboardService
 from app.services.mouse_service import MouseService
-from app.ultis.constants import MENU_POSITION
+from app.ultis.constants import MENU_POSITION, PROFILE_NAME, PROXY_HOST_NAME, PROXY_PORT, USERNAME_PROXY, PASSWORD_PROXY
 from app.ultis.helper import sleep_random
 
 mouse = Controller()
@@ -65,7 +65,7 @@ class ChromeService:
     async def actions_chrome(cls):
         global ACTION_RUN
         idx = 0
-        time_to_get_new_ip = 5  # Default
+        time_to_get_new_ip = 4  # Default
         index_relax = 0
         is_open_web = False
         ###
@@ -90,29 +90,29 @@ class ChromeService:
                     index_relax += 1
                     await sleep_random(min_wait=180, max_wait=300)
                 # Click random pos and scroll to end
-                await sleep_random(min_wait=30, max_wait=40)
-                click_ads = random.choice([True, False, False, False, False, False, False])
-                if click_ads:
-                    await MouseService.click_position(520, 450)
-                    await sleep_random(min_wait=8, max_wait=15)
-                    KeyboardService().ctr_w()
-                await sleep_random(min_wait=20, max_wait=30)
+                await sleep_random(min_wait=60, max_wait=70)
+                # click_ads = random.choice([True, True])
+                # if click_ads:
+                #     await MouseService.click_position(520, 450)
+                #     await sleep_random(min_wait=8, max_wait=15)
+                #     KeyboardService().ctr_w()
+                # await sleep_random(min_wait=20, max_wait=30)
                 time_to_ran_click = random.randint(6, 12)
                 while time_to_ran_click > 0:
-                    click_ran_x = random.randint(230, 500)
-                    click_ran_y = random.randint(520, 550)
+                    click_ran_x = random.randint(230, 430)
+                    click_ran_y = random.randint(540, 550)
                     await MouseService.click_position(click_ran_x, click_ran_y)
                     logger.info(f"Click pos {click_ran_x} {click_ran_y}")
                     mouse.position = (click_ran_x, click_ran_y)
                     mouse.scroll(0, -2)
-                    random_boolean = random.choice([True, False])
+                    random_boolean = random.choice([True, False, False])
                     if random_boolean:
                         mouse.scroll(0, 4)
-                    await sleep_random(min_wait=2, max_wait=4)
+                    await sleep_random(min_wait=3, max_wait=5)
                     time_to_ran_click -= 1
                 # Click new page
                 logger.info("Wait to click next page")
-                await sleep_random(min_wait=10, max_wait=20)
+                await sleep_random(min_wait=10, max_wait=15)
                 # Scroll up menu
                 logger.info("Scroll menu")
                 sroll = 10
@@ -155,12 +155,30 @@ class ChromeService:
 
     @classmethod
     async def open_proxy(cls):
-        # Open tab ext
+        # Input name
         await sleep_random(min_wait=1, max_wait=3)
-        await MouseService.click_position(x=740, y=85)
-        # Click random ip
+        await MouseService.click_position(x=280, y=335)
+        KeyboardService().input_text(PROFILE_NAME)
+        # Input host
+        await sleep_random(min_wait=2, max_wait=4)
+        await MouseService.click_position(x=270, y=395)
+        KeyboardService().input_text(PROXY_HOST_NAME)
+        # Input port
         await sleep_random(min_wait=1, max_wait=3)
-        await MouseService.click_position(x=600, y=160)
+        await MouseService.click_position(x=500, y=395)
+        KeyboardService().input_text(PROXY_PORT)
+        # Input username
+        await sleep_random(min_wait=3, max_wait=4)
+        await MouseService.click_position(x=280, y=450)
+        KeyboardService().input_text(USERNAME_PROXY)
+        # Input password
+        await sleep_random(min_wait=3, max_wait=4)
+        await MouseService.click_position(x=450, y=450)
+        KeyboardService().input_text(PASSWORD_PROXY)
+        # Click save
+        await sleep_random(min_wait=1, max_wait=3)
+        await MouseService.click_position(x=520, y=485)
+
 
     @classmethod
     async def select_proxy(cls):
