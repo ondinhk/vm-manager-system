@@ -35,3 +35,9 @@ class KeyboardService:
         self.keyboard.press('n')
         self.keyboard.release('n')
         self.keyboard.release(Key.ctrl)
+
+    def ctr_w(self):
+        self.keyboard.press(Key.ctrl)
+        self.keyboard.press('w')
+        self.keyboard.release('w')
+        self.keyboard.release(Key.ctrl)

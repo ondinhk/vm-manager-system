@@ -90,11 +90,17 @@ class ChromeService:
                     index_relax += 1
                     await sleep_random(min_wait=180, max_wait=300)
                 # Click random pos and scroll to end
+                await sleep_random(min_wait=30, max_wait=40)
+                click_ads = random.choice([True, False, False, False, False, False, False])
+                if click_ads:
+                    await MouseService.click_position(520, 450)
+                    await sleep_random(min_wait=8, max_wait=15)
+                    KeyboardService().ctr_w()
+                await sleep_random(min_wait=20, max_wait=30)
                 time_to_ran_click = random.randint(6, 12)
-                await sleep_random(min_wait=60, max_wait=80)
                 while time_to_ran_click > 0:
                     click_ran_x = random.randint(230, 500)
-                    click_ran_y = random.randint(450, 480)
+                    click_ran_y = random.randint(520, 550)
                     await MouseService.click_position(click_ran_x, click_ran_y)
                     logger.info(f"Click pos {click_ran_x} {click_ran_y}")
                     mouse.position = (click_ran_x, click_ran_y)
@@ -106,7 +112,7 @@ class ChromeService:
                     time_to_ran_click -= 1
                 # Click new page
                 logger.info("Wait to click next page")
-                await sleep_random(min_wait=30, max_wait=40)
+                await sleep_random(min_wait=10, max_wait=20)
                 # Scroll up menu
                 logger.info("Scroll menu")
                 sroll = 10

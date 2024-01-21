@@ -30,7 +30,7 @@ spec:
       containers:
       - name: worker-container-master
         image: ondinhk/vm-manager-master:latest
-        #imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 6081
         - containerPort: 5000
@@ -86,7 +86,7 @@ spec:
       containers:
       - name: worker-container-{{ loop.index }}
         image: ondinhk/vm-manager-worker:latest
-        #imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 6081
         resources:

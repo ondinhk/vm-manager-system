@@ -16,8 +16,8 @@ const RDPView = ({ name, group, url }) => {
                         }
                     }}
                     style={{
-                        width: '377px',
-                        height: '390px',
+                        width: '350px',
+                        height: '283px',
                     }}
                 />
                 {/* <iframe title="" width="900" height="760" src={url} frameBorder="0" /> */}
