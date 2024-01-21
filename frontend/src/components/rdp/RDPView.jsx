@@ -7,7 +7,7 @@ const RDPView = ({ name, group, url }) => {
             <div className={styles.view}>
                 <VncScreen
                     url={url}
-                    //scaleViewport
+                    scaleViewport
                     resizeSession
                     background="#000000"
                     rfbOptions={{
@@ -16,8 +16,8 @@ const RDPView = ({ name, group, url }) => {
                         }
                     }}
                     style={{
-                        width: '800px',
-                        height: '600px',
+                        width: '377px',
+                        height: '390px',
                     }}
                 />
                 {/* <iframe title="" width="900" height="760" src={url} frameBorder="0" /> */}

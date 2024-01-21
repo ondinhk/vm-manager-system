@@ -65,7 +65,7 @@ class ChromeService:
     async def actions_chrome(cls):
         global ACTION_RUN
         idx = 0
-        time_to_get_new_ip = 8  # Default
+        time_to_get_new_ip = 5  # Default
         index_relax = 0
         is_open_web = False
         ###
@@ -85,25 +85,28 @@ class ChromeService:
                     logger.info("Refresh IP")
                     KeyboardService().ctr_f5()
                     # Reset default value
-                    time_to_get_new_ip = random.randint(6, 10)
+                    time_to_get_new_ip = random.randint(3, 6)
                     idx = 0
                     index_relax += 1
                     await sleep_random(min_wait=180, max_wait=300)
                 # Click random pos and scroll to end
-                time_to_ran_click = random.randint(7, 15)
-                await sleep_random(min_wait=60, max_wait=70)
+                time_to_ran_click = random.randint(6, 12)
+                await sleep_random(min_wait=60, max_wait=80)
                 while time_to_ran_click > 0:
-                    click_ran_x = random.randint(220, 450)
-                    click_ran_y = random.randint(350, 400)
+                    click_ran_x = random.randint(230, 500)
+                    click_ran_y = random.randint(450, 480)
                     await MouseService.click_position(click_ran_x, click_ran_y)
                     logger.info(f"Click pos {click_ran_x} {click_ran_y}")
                     mouse.position = (click_ran_x, click_ran_y)
                     mouse.scroll(0, -2)
-                    await sleep_random(min_wait=3, max_wait=6)
+                    random_boolean = random.choice([True, False])
+                    if random_boolean:
+                        mouse.scroll(0, 4)
+                    await sleep_random(min_wait=2, max_wait=4)
                     time_to_ran_click -= 1
                 # Click new page
                 logger.info("Wait to click next page")
-                await sleep_random(min_wait=180, max_wait=300)
+                await sleep_random(min_wait=30, max_wait=40)
                 # Scroll up menu
                 logger.info("Scroll menu")
                 sroll = 10
