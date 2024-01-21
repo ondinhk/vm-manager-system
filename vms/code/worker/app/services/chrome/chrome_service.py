@@ -65,7 +65,7 @@ class ChromeService:
     async def actions_chrome(cls):
         global ACTION_RUN
         idx = 0
-        time_to_get_new_ip = 4  # Default
+        time_to_get_new_ip = 3  # Default
         index_relax = 0
         is_open_web = False
         ###
@@ -85,7 +85,7 @@ class ChromeService:
                     logger.info("Refresh IP")
                     KeyboardService().ctr_f5()
                     # Reset default value
-                    time_to_get_new_ip = random.randint(3, 6)
+                    time_to_get_new_ip = random.randint(3, 4)
                     idx = 0
                     index_relax += 1
                     await sleep_random(min_wait=180, max_wait=300)
@@ -97,18 +97,18 @@ class ChromeService:
                 #     await sleep_random(min_wait=8, max_wait=15)
                 #     KeyboardService().ctr_w()
                 # await sleep_random(min_wait=20, max_wait=30)
-                time_to_ran_click = random.randint(6, 12)
+                time_to_ran_click = random.randint(15, 20)
                 while time_to_ran_click > 0:
                     click_ran_x = random.randint(230, 430)
                     click_ran_y = random.randint(540, 550)
-                    await MouseService.click_position(click_ran_x, click_ran_y)
+                    # await MouseService.click_position(click_ran_x, click_ran_y)
                     logger.info(f"Click pos {click_ran_x} {click_ran_y}")
                     mouse.position = (click_ran_x, click_ran_y)
-                    mouse.scroll(0, -2)
+                    mouse.scroll(0, -4)
                     random_boolean = random.choice([True, False, False])
                     if random_boolean:
-                        mouse.scroll(0, 4)
-                    await sleep_random(min_wait=3, max_wait=5)
+                        mouse.scroll(0, 1)
+                    await sleep_random(min_wait=1, max_wait=3)
                     time_to_ran_click -= 1
                 # Click new page
                 logger.info("Wait to click next page")
@@ -176,7 +176,7 @@ class ChromeService:
         await MouseService.click_position(x=450, y=450)
         KeyboardService().input_text(PASSWORD_PROXY)
         # Click save
-        await sleep_random(min_wait=1, max_wait=3)
+        await sleep_random(min_wait=3, max_wait=4)
         await MouseService.click_position(x=520, y=485)
 
 
